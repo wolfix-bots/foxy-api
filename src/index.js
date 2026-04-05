@@ -626,6 +626,205 @@ app.get('/api/utils/binary', (req, res) => {
     } catch(e) { return fail(res, e.message); }
 });
 
+// ══════════════════════════════════════════════════════════
+// ── MOVIES (xcasper movie API proxy) ──────────────────────
+// ══════════════════════════════════════════════════════════
+const MOVIE_API = 'https://movieapi.xcasper.space';
+const MOVIE_HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Referer': 'https://movieapi.xcasper.space/',
+    'Origin': 'https://movieapi.xcasper.space',
+    'Accept': 'application/json'
+};
+async function movieFetch(path) {
+    return apiFetch(`${MOVIE_API}${path}`, 20000, MOVIE_HEADERS);
+}
+
+app.get('/api/movies/search', async (req, res) => {
+    const q = req.query.q || req.query.keyword;
+    if (!q) return fail(res, 'Parameter q (movie title) is required', 400);
+    const page = req.query.page || '1';
+    const perPage = req.query.perPage || '12';
+    const type = req.query.type || ''; // 1=movie, 2=tv
+    let url = `/api/search?keyword=${encodeURIComponent(q)}&page=${page}&perPage=${perPage}`;
+    if (type) url += `&subjectType=${type}`;
+    try { return ok(res, await movieFetch(url)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/trending', async (req, res) => {
+    const page = req.query.page || '0';
+    const perPage = req.query.perPage || '18';
+    try { return ok(res, await movieFetch(`/api/trending?page=${page}&perPage=${perPage}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/hot', async (req, res) => {
+    try { return ok(res, await movieFetch('/api/hot')); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/ranking', async (req, res) => {
+    try { return ok(res, await movieFetch('/api/ranking')); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/popular-search', async (req, res) => {
+    try { return ok(res, await movieFetch('/api/popular-search')); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/homepage', async (req, res) => {
+    try { return ok(res, await movieFetch('/api/homepage')); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/suggest', async (req, res) => {
+    const q = req.query.q || req.query.keyword;
+    if (!q) return fail(res, 'Parameter q (keyword) is required', 400);
+    try { return ok(res, await movieFetch(`/api/search/suggest?keyword=${encodeURIComponent(q)}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/browse', async (req, res) => {
+    const type = req.query.type || '1'; // 1=movie, 2=tv
+    const genre = req.query.genre || '';
+    const country = req.query.country || '';
+    const page = req.query.page || '1';
+    let url = `/api/browse?subjectType=${type}&page=${page}&perPage=12`;
+    if (genre) url += `&genre=${encodeURIComponent(genre)}`;
+    if (country) url += `&countryName=${encodeURIComponent(country)}`;
+    try { return ok(res, await movieFetch(url)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/detail', async (req, res) => {
+    const id = req.query.id || req.query.subjectId;
+    if (!id) return fail(res, 'Parameter id (subjectId) is required', 400);
+    try { return ok(res, await movieFetch(`/api/detail?subjectId=${id}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/rich-detail', async (req, res) => {
+    const id = req.query.id || req.query.subjectId;
+    if (!id) return fail(res, 'Parameter id (subjectId) is required', 400);
+    try { return ok(res, await movieFetch(`/api/rich-detail?subjectId=${id}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/recommend', async (req, res) => {
+    const id = req.query.id || req.query.subjectId;
+    if (!id) return fail(res, 'Parameter id (subjectId) is required', 400);
+    const page = req.query.page || '1';
+    try { return ok(res, await movieFetch(`/api/recommend?subjectId=${id}&page=${page}&perPage=10`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/play', async (req, res) => {
+    const id = req.query.id || req.query.subjectId;
+    if (!id) return fail(res, 'Parameter id (subjectId) is required', 400);
+    try { return ok(res, await movieFetch(`/api/play?subjectId=${id}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/stream', async (req, res) => {
+    const id = req.query.id || req.query.subjectId;
+    const streamId = req.query.streamId;
+    if (!id) return fail(res, 'Parameter id (subjectId) is required', 400);
+    let url = `/api/bff/stream?subjectId=${id}`;
+    if (streamId) url += `&streamId=${streamId}`;
+    try { return ok(res, await movieFetch(url)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/captions', async (req, res) => {
+    const id = req.query.id || req.query.subjectId;
+    const streamId = req.query.streamId;
+    if (!id || !streamId) return fail(res, 'Parameters id and streamId are required', 400);
+    try { return ok(res, await movieFetch(`/api/captions?subjectId=${id}&streamId=${streamId}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+// ── ShowBox ──────────────────────────────────────────────
+app.get('/api/movies/showbox/search', async (req, res) => {
+    const q = req.query.q || req.query.keyword;
+    if (!q) return fail(res, 'Parameter q (keyword) is required', 400);
+    const type = req.query.type || 'movie'; // movie or tv
+    const limit = req.query.limit || '10';
+    try { return ok(res, await movieFetch(`/api/showbox/search?keyword=${encodeURIComponent(q)}&type=${type}&pagelimit=${limit}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/showbox/movie', async (req, res) => {
+    const id = req.query.id;
+    if (!id) return fail(res, 'Parameter id is required', 400);
+    try { return ok(res, await movieFetch(`/api/showbox/movie?id=${id}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/showbox/tv', async (req, res) => {
+    const id = req.query.id;
+    if (!id) return fail(res, 'Parameter id is required', 400);
+    try { return ok(res, await movieFetch(`/api/showbox/tv?id=${id}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/showbox/streams', async (req, res) => {
+    const id = req.query.id;
+    if (!id) return fail(res, 'Parameter id is required', 400);
+    try { return ok(res, await movieFetch(`/api/showbox/streams?id=${id}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+// ── NewToxic ─────────────────────────────────────────────
+app.get('/api/movies/newtoxic/search', async (req, res) => {
+    const q = req.query.q || req.query.keyword;
+    if (!q) return fail(res, 'Parameter q (keyword) is required', 400);
+    try { return ok(res, await movieFetch(`/api/newtoxic/search?keyword=${encodeURIComponent(q)}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/newtoxic/latest', async (req, res) => {
+    const page = req.query.page || '1';
+    try { return ok(res, await movieFetch(`/api/newtoxic/latest?page=${page}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/newtoxic/featured', async (req, res) => {
+    try { return ok(res, await movieFetch('/api/newtoxic/featured')); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/newtoxic/detail', async (req, res) => {
+    const path = req.query.path;
+    if (!path) return fail(res, 'Parameter path is required', 400);
+    try { return ok(res, await movieFetch(`/api/newtoxic/detail?path=${encodeURIComponent(path)}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/newtoxic/resolve', async (req, res) => {
+    const fid = req.query.fid;
+    if (!fid) return fail(res, 'Parameter fid is required', 400);
+    try { return ok(res, await movieFetch(`/api/newtoxic/resolve?fid=${fid}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+// ── Staff ─────────────────────────────────────────────────
+app.get('/api/movies/staff', async (req, res) => {
+    const id = req.query.id || req.query.staffId;
+    if (!id) return fail(res, 'Parameter id (staffId) is required', 400);
+    try { return ok(res, await movieFetch(`/api/staff/detail?staffId=${id}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/movies/staff/works', async (req, res) => {
+    const id = req.query.id || req.query.staffId;
+    if (!id) return fail(res, 'Parameter id (staffId) is required', 400);
+    const page = req.query.page || '1';
+    try { return ok(res, await movieFetch(`/api/staff/works?staffId=${id}&page=${page}&perPage=10`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
 // ── 404 / SPA ──
 app.use('/api/*', (_q, r) => r.status(404).json({ success: false, creator: CREATOR, error: 'Endpoint not found.' }));
 app.get('*', (_q, r) => r.sendFile(join(__dirname, '..', 'public', 'index.html')));
