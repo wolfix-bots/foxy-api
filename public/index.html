@@ -1685,6 +1685,71 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
       </div></div>
     </div>
 
+    <div class="ep-card" id="ep-movie-trailer">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/trailer<span class="param">?id=</span></span>
+        <span class="ep-tagline">Get movie trailer (YouTube)</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Extracts the trailer URL from a movie's rich-detail. Returns <code>trailerUrl</code>, <code>trailerCover</code>, <code>youtubeId</code>, <code>youtubeEmbed</code> and <code>youtubeWatch</code> — ready to embed in any player.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Source: xcasper</span><span class="meta-chip">Returns: trailer object</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="4133967316415663152" value="4133967316415663152" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Movie subjectId</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/trailer</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/trailer',{'id':'id'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-movie-live">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/live</span>
+        <span class="ep-tagline">Live / broadcast movies</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Returns the list of currently live or broadcast movies available on the xcasper platform.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Source: xcasper</span><span class="meta-chip">No params needed</span></div>
+        </div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/live</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/live',{})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-nt-files">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/newtoxic/files<span class="param">?path=</span></span>
+        <span class="ep-tagline">NewToxic file listing</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>List downloadable files inside a NewToxic directory path (e.g. season folder). Use the <code>detailPath</code> from a NewToxic detail response to get the base path, then append the season directory.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Source: NewToxic via xcasper</span><span class="meta-chip">Returns: file list</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">path</span><span class="preq">*</span><input class="pinput" placeholder="new/1/23390/Season-1/" value="new/1/23390/Season-1/" data-param="path" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Directory path from detail response</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/newtoxic/files</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/newtoxic/files',{'path':'path'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
     <!-- ═══ OWN STREAM (YTS) ═══ -->
     <div class="ep-section-header">🎬 Own Stream — powered by YTS (always available, no key)</div>
 
