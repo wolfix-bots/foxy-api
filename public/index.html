@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Foxy Tech API</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090b11;
+      --bg2: #0d1117;
+      --bg3: #161b22;
+      --bg4: #1c2230;
+      --border: #21262d;
+      --border2: #30363d;
+      --accent: #00d4ff;
+      --accent2: #7c3aed;
+      --green: #3fb950;
+      --yellow: #e3b341;
+      --red: #f85149;
+      --orange: #f0883e;
+      --text: #e6edf3;
+      --text2: #8b949e;
+      --text3: #6e7681;
+      --glow: 0 0 20px rgba(0,212,255,0.15);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+    /* ── Layout ── */
+    .layout { display: flex; min-height: 100vh; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 260px;
+      min-width: 260px;
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar-logo {
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sidebar-logo .brand {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar-logo .brand span { color: var(--text); }
+    .sidebar-logo .version {
+      font-size: 11px;
+      color: var(--text3);
+      margin-top: 4px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .sidebar-nav { padding: 12px 0; flex: 1; }
+    .nav-category {
+      padding: 8px 20px 4px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 20px;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      transition: all 0.15s;
+      font-size: 13px;
+      color: var(--text2);
+      text-decoration: none;
+    }
+    .nav-item:hover { background: var(--bg3); color: var(--text); border-left-color: var(--border2); }
+    .nav-item.active { background: rgba(0,212,255,0.06); color: var(--accent); border-left-color: var(--accent); }
+    .nav-item .method-badge {
+      font-size: 9px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 2px 5px;
+      border-radius: 3px;
+      background: rgba(63,185,80,0.15);
+      color: var(--green);
+      min-width: 30px;
+      text-align: center;
+    }
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text3);
+    }
+    .sidebar-footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── Main ── */
+    .main { flex: 1; min-width: 0; }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, #090b11 0%, #0d1117 50%, #111827 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 48px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: 200px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(124,58,237,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.2);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+    .hero-badge::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 14px;
+    }
+    .hero h1 .accent { color: var(--accent); }
+    .hero p {
+      font-size: 16px;
+      color: var(--text2);
+      max-width: 560px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+    }
+    .stat { }
+    .stat .num {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .stat .label { font-size: 12px; color: var(--text3); margin-top: 2px; }
+
+    /* ── Base URL Banner ── */
+    .base-url-bar {
+      background: var(--bg3);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .base-url-label { font-size: 11px; color: var(--text3); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; min-width: 70px; }
+    .base-url-input {
+      flex: 1;
+      max-width: 500px;
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      padding: 7px 12px;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .base-url-input:focus { border-color: var(--accent); }
+    .base-url-hint { font-size: 11px; color: var(--text3); }
+
+    /* ── Content ── */
+    .content { padding: 40px 48px; max-width: 900px; }
+
+    /* ── Section title ── */
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text3);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* ── Endpoint Card ── */
+    .endpoint-group { margin-bottom: 40px; }
+    .endpoint-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .endpoint-card:hover { border-color: var(--border2); }
+    .endpoint-card.open { border-color: var(--accent); box-shadow: var(--glow); }
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .method {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 5px;
+      min-width: 44px;
+      text-align: center;
+      background: rgba(63,185,80,0.12);
+      color: var(--green);
+      border: 1px solid rgba(63,185,80,0.2);
+    }
+    .endpoint-path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+    }
+    .endpoint-path .param { color: var(--orange); }
+    .endpoint-desc { margin-left: auto; font-size: 13px; color: var(--text2); }
+    .chevron {
+      margin-left: 8px;
+      color: var(--text3);
+      transition: transform 0.2s;
+      font-size: 12px;
+    }
+    .open .chevron { transform: rotate(180deg); }
+
+    /* ── Endpoint Body ── */
+    .endpoint-body { display: none; border-top: 1px solid var(--border); }
+    .open .endpoint-body { display: block; }
+    .endpoint-inner { padding: 20px; }
+
+    .params-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text3);
+      margin-bottom: 12px;
+    }
+    .param-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .param-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--orange);
+      min-width: 80px;
+      padding-top: 8px;
+    }
+    .param-req {
+      font-size: 10px;
+      color: var(--red);
+      min-width: 14px;
+      padding-top: 10px;
+    }
+    .param-input {
+      flex: 1;
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      padding: 7px 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .param-input:focus { border-color: var(--accent); background: var(--bg4); }
+    .param-desc { font-size: 11px; color: var(--text3); padding-top: 10px; min-width: 130px; }
+
+    /* ── Try button ── */
+    .try-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 9px 20px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: all 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+    .try-btn:hover { background: #33ddff; transform: translateY(-1px); }
+    .try-btn:active { transform: translateY(0); }
+    .try-btn.loading { opacity: 0.7; cursor: wait; }
+    .try-btn .spinner {
+      width: 12px;
+      height: 12px;
+      border: 2px solid rgba(0,0,0,0.3);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Response ── */
+    .response-area { margin-top: 20px; display: none; }
+    .response-area.visible { display: block; }
+    .response-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .response-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); }
+    .status-chip {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .status-chip.ok { background: rgba(63,185,80,0.12); color: var(--green); border: 1px solid rgba(63,185,80,0.2); }
+    .status-chip.err { background: rgba(248,81,73,0.12); color: var(--red); border: 1px solid rgba(248,81,73,0.2); }
+    .response-time { font-size: 11px; color: var(--text3); font-family: 'JetBrains Mono', monospace; }
+    .response-pre {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      max-height: 380px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: var(--text2);
+    }
+    .response-pre .json-key   { color: #79c0ff; }
+    .response-pre .json-str  { color: #a5d6ff; }
+    .response-pre .json-num  { color: #f8c555; }
+    .response-pre .json-bool { color: #ff7b72; }
+    .response-pre .json-null { color: var(--text3); }
+
+    /* ── URL preview ── */
+    .url-preview {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text3);
+      margin-top: 14px;
+      word-break: break-all;
+    }
+    .url-preview .url-method { color: var(--green); font-weight: 700; margin-right: 8px; }
+    .url-preview .url-path { color: var(--text2); }
+    .url-preview .url-param { color: var(--orange); }
+
+    /* ── Mobile hamburger ── */
+    .hamburger { display: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .hero { padding: 40px 24px 32px; }
+      .hero h1 { font-size: 28px; }
+      .base-url-bar { padding: 12px 24px; flex-wrap: wrap; }
+      .content { padding: 24px; }
+      .sidebar {
+        position: fixed;
+        left: -260px;
+        z-index: 100;
+        transition: left 0.25s;
+        height: 100%;
+      }
+      .sidebar.open { left: 0; box-shadow: 4px 0 30px rgba(0,0,0,0.5); }
+      .hamburger {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 200;
+        width: 48px;
+        height: 48px;
+        background: var(--accent);
+        color: #000;
+        border: none;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        box-shadow: 0 4px 20px rgba(0,212,255,0.4);
+      }
+      .overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 99;
+      }
+      .overlay.visible { display: block; }
+      .hero-stats { gap: 20px; }
+      .endpoint-header { flex-wrap: wrap; gap: 8px; }
+      .endpoint-desc { display: none; }
+      .param-row { flex-wrap: wrap; }
+      .param-desc { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<div class="layout">
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand">🦊 Foxy<span>Tech</span></div>
+      <div class="version">API v1.0.0 · REST</div>
+    </div>
+    <div class="sidebar-nav" id="sidebarNav">
+      <div class="nav-category">Overview</div>
+      <a class="nav-item active" href="#overview" onclick="closeSidebar()">
+        <span class="method-badge" style="background:rgba(0,212,255,0.1);color:var(--accent)">●</span>
+        Getting Started
+      </a>
+      <div class="nav-category">AI</div>
+      <a class="nav-item" href="#ep-ai-chat" onclick="closeSidebar()">
+        <span class="method-badge">GET</span> Chat
+      </a>
+      <div class="nav-category">Search</div>
+      <a class="nav-item" href="#ep-search-google" onclick="closeSidebar()">
+        <span class="method-badge">GET</span> Google
+      </a>
+      <a class="nav-item" href="#ep-search-lyrics" onclick="closeSidebar()">
+        <span class="method-badge">GET</span> Lyrics
+      </a>
+      <a class="nav-item" href="#ep-search-wallpaper" onclick="closeSidebar()">
+        <span class="method-badge">GET</span> Wallpaper
+      </a>
+      <div class="nav-category">Downloader</div>
+      <a class="nav-item" href="#ep-dl-tiktok" onclick="closeSidebar()">
+        <span class="method-badge">GET</span> TikTok
+      </a>
+      <a class="nav-item" href="#ep-dl-ytmp3" onclick="closeSidebar()">
+        <span class="method-badge">GET</span> YouTube MP3
+      </a>
+      <a class="nav-item" href="#ep-dl-ytmp4" onclick="closeSidebar()">
+        <span class="method-badge">GET</span> YouTube MP4
+      </a>
+      <div class="nav-category">System</div>
+      <a class="nav-item" href="#ep-health" onclick="closeSidebar()">
+        <span class="method-badge">GET</span> Health
+      </a>
+    </div>
+    <div class="sidebar-footer">
+      Built by <a href="https://github.com/wolfix-bots" target="_blank">Foxy Tech</a>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="main">
+    <!-- Hero -->
+    <section class="hero" id="overview">
+      <div class="hero-badge">Live · Free to Use</div>
+      <h1>Foxy Tech <span class="accent">API</span></h1>
+      <p>A multi-purpose REST API. AI chat, web search, lyrics, wallpapers, and media downloaders — all in one place. Test any endpoint right here.</p>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">8</div><div class="label">Endpoints</div></div>
+        <div class="stat"><div class="num">4</div><div class="label">Categories</div></div>
+        <div class="stat"><div class="num">Free</div><div class="label">No API Key</div></div>
+      </div>
+    </section>
+
+    <!-- Base URL Bar -->
+    <div class="base-url-bar">
+      <span class="base-url-label">Base URL</span>
+      <input class="base-url-input" id="baseUrl" type="text" value="" placeholder="https://your-app.onrender.com"/>
+      <span class="base-url-hint">Your Render deployment URL</span>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+
+      <!-- AI -->
+      <div class="endpoint-group">
+        <div class="section-title">Artificial Intelligence</div>
+
+        <div class="endpoint-card" id="ep-ai-chat">
+          <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method">GET</span>
+            <span class="endpoint-path">/api/ai/chat<span class="param">?q=</span></span>
+            <span class="endpoint-desc">AI chat response</span>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="endpoint-body">
+            <div class="endpoint-inner">
+              <div class="params-title">Query Parameters</div>
+              <div class="param-row">
+                <span class="param-name">q</span>
+                <span class="param-req">*</span>
+                <input class="param-input" placeholder="Ask me anything..." data-param="q" oninput="updateUrl(this)"/>
+                <span class="param-desc">Your message or question</span>
+              </div>
+              <div class="url-preview" id="url-ai-chat">
+                <span class="url-method">GET</span>
+                <span class="url-path url-full">/api/ai/chat</span>
+              </div>
+              <button class="try-btn" onclick="run(this, '/api/ai/chat', {q:'q'})">
+                ▶ Send Request
+              </button>
+              <div class="response-area" id="res-ai-chat"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="endpoint-group">
+        <div class="section-title">Search</div>
+
+        <div class="endpoint-card" id="ep-search-google">
+          <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method">GET</span>
+            <span class="endpoint-path">/api/search/google<span class="param">?q=</span></span>
+            <span class="endpoint-desc">Web search results</span>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="endpoint-body">
+            <div class="endpoint-inner">
+              <div class="params-title">Query Parameters</div>
+              <div class="param-row">
+                <span class="param-name">q</span>
+                <span class="param-req">*</span>
+                <input class="param-input" placeholder="latest AI news" data-param="q" oninput="updateUrl(this)"/>
+                <span class="param-desc">Search term</span>
+              </div>
+              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/search/google</span></div>
+              <button class="try-btn" onclick="run(this, '/api/search/google', {q:'q'})">▶ Send Request</button>
+              <div class="response-area" id="res-search-google"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="endpoint-card" id="ep-search-lyrics">
+          <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method">GET</span>
+            <span class="endpoint-path">/api/search/lyrics<span class="param">?q=</span></span>
+            <span class="endpoint-desc">Song lyrics</span>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="endpoint-body">
+            <div class="endpoint-inner">
+              <div class="params-title">Query Parameters</div>
+              <div class="param-row">
+                <span class="param-name">q</span>
+                <span class="param-req">*</span>
+                <input class="param-input" placeholder="Blinding Lights The Weeknd" data-param="q" oninput="updateUrl(this)"/>
+                <span class="param-desc">Song name or artist</span>
+              </div>
+              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/search/lyrics</span></div>
+              <button class="try-btn" onclick="run(this, '/api/search/lyrics', {q:'q'})">▶ Send Request</button>
+              <div class="response-area" id="res-search-lyrics"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="endpoint-card" id="ep-search-wallpaper">
+          <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method">GET</span>
+            <span class="endpoint-path">/api/search/wallpaper<span class="param">?q=</span></span>
+            <span class="endpoint-desc">Wallpaper image results</span>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="endpoint-body">
+            <div class="endpoint-inner">
+              <div class="params-title">Query Parameters</div>
+              <div class="param-row">
+                <span class="param-name">q</span>
+                <span class="param-req"></span>
+                <input class="param-input" placeholder="nature landscape" data-param="q" oninput="updateUrl(this)"/>
+                <span class="param-desc">Search term (optional)</span>
+              </div>
+              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/search/wallpaper</span></div>
+              <button class="try-btn" onclick="run(this, '/api/search/wallpaper', {q:'q'})">▶ Send Request</button>
+              <div class="response-area" id="res-search-wallpaper"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Downloader -->
+      <div class="endpoint-group">
+        <div class="section-title">Downloader</div>
+
+        <div class="endpoint-card" id="ep-dl-tiktok">
+          <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method">GET</span>
+            <span class="endpoint-path">/api/downloader/tiktok<span class="param">?url=</span></span>
+            <span class="endpoint-desc">TikTok video download link</span>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="endpoint-body">
+            <div class="endpoint-inner">
+              <div class="params-title">Query Parameters</div>
+              <div class="param-row">
+                <span class="param-name">url</span>
+                <span class="param-req">*</span>
+                <input class="param-input" placeholder="https://vm.tiktok.com/..." data-param="url" oninput="updateUrl(this)"/>
+                <span class="param-desc">Public TikTok video URL</span>
+              </div>
+              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/downloader/tiktok</span></div>
+              <button class="try-btn" onclick="run(this, '/api/downloader/tiktok', {url:'url'})">▶ Send Request</button>
+              <div class="response-area" id="res-dl-tiktok"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="endpoint-card" id="ep-dl-ytmp3">
+          <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method">GET</span>
+            <span class="endpoint-path">/api/downloader/ytmp3<span class="param">?url=</span></span>
+            <span class="endpoint-desc">YouTube audio download</span>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="endpoint-body">
+            <div class="endpoint-inner">
+              <div class="params-title">Query Parameters</div>
+              <div class="param-row">
+                <span class="param-name">url</span>
+                <span class="param-req">*</span>
+                <input class="param-input" placeholder="https://youtu.be/..." data-param="url" oninput="updateUrl(this)"/>
+                <span class="param-desc">YouTube video URL</span>
+              </div>
+              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/downloader/ytmp3</span></div>
+              <button class="try-btn" onclick="run(this, '/api/downloader/ytmp3', {url:'url'})">▶ Send Request</button>
+              <div class="response-area" id="res-dl-ytmp3"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="endpoint-card" id="ep-dl-ytmp4">
+          <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method">GET</span>
+            <span class="endpoint-path">/api/downloader/ytmp4<span class="param">?url=</span></span>
+            <span class="endpoint-desc">YouTube video download</span>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="endpoint-body">
+            <div class="endpoint-inner">
+              <div class="params-title">Query Parameters</div>
+              <div class="param-row">
+                <span class="param-name">url</span>
+                <span class="param-req">*</span>
+                <input class="param-input" placeholder="https://youtu.be/..." data-param="url" oninput="updateUrl(this)"/>
+                <span class="param-desc">YouTube video URL</span>
+              </div>
+              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/downloader/ytmp4</span></div>
+              <button class="try-btn" onclick="run(this, '/api/downloader/ytmp4', {url:'url'})">▶ Send Request</button>
+              <div class="response-area" id="res-dl-ytmp4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- System -->
+      <div class="endpoint-group">
+        <div class="section-title">System</div>
+        <div class="endpoint-card" id="ep-health">
+          <div class="endpoint-header" onclick="toggle(this)">
+            <span class="method">GET</span>
+            <span class="endpoint-path">/health</span>
+            <span class="endpoint-desc">Server health & uptime</span>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="endpoint-body">
+            <div class="endpoint-inner">
+              <div style="font-size:13px;color:var(--text2);margin-bottom:12px;">No parameters required.</div>
+              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/health</span></div>
+              <button class="try-btn" onclick="run(this, '/health', {})">▶ Send Request</button>
+              <div class="response-area" id="res-health"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div>
+
+<button class="hamburger" id="hamburger" onclick="toggleSidebar()">☰</button>
+
+<script>
+  // ── Base URL ──
+  const baseInput = document.getElementById('baseUrl');
+  const savedBase = localStorage.getItem('foxyApiBase') || '';
+  if (savedBase) baseInput.value = savedBase;
+  baseInput.addEventListener('input', () => {
+    localStorage.setItem('foxyApiBase', baseInput.value.trim());
+    document.querySelectorAll('.url-full').forEach(el => el.dataset.path && updatePreview(el));
+  });
+
+  function getBase() {
+    return baseInput.value.trim().replace(/\/$/, '') || window.location.origin;
+  }
+
+  // ── Toggle card ──
+  function toggle(header) {
+    const card = header.parentElement;
+    card.classList.toggle('open');
+  }
+
+  // ── Update URL preview when typing ──
+  function updateUrl(input) {
+    const body = input.closest('.endpoint-body');
+    const preview = body.querySelector('.url-preview .url-full');
+    const btn = body.querySelector('.try-btn');
+    rebuildPreview(body);
+  }
+
+  function rebuildPreview(body) {
+    const inputs = body.querySelectorAll('.param-input');
+    const path = body.querySelector('.endpoint-header .endpoint-path')?.textContent?.split('?')[0] || '';
+    const parts = [];
+    inputs.forEach(inp => {
+      const param = inp.dataset.param;
+      const val = inp.value.trim();
+      if (val) parts.push(param + '=' + encodeURIComponent(val));
+    });
+    const qs = parts.length ? '?' + parts.join('&') : '';
+    const preview = body.querySelector('.url-full');
+    if (preview) {
+      preview.innerHTML = path + (qs ? '<span style="color:var(--orange)">' + escHtml(qs) + '</span>' : '');
+      preview.dataset.path = path;
+    }
+  }
+
+  function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // ── Run request ──
+  async function run(btn, path, paramMap) {
+    const body = btn.closest('.endpoint-body');
+    const inputs = {};
+    Object.entries(paramMap).forEach(([key, inputKey]) => {
+      const el = body.querySelector('[data-param="' + inputKey + '"]');
+      if (el) inputs[key] = el.value.trim();
+    });
+
+    const qs = Object.entries(inputs).filter(([,v])=>v).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
+    const url = getBase() + path + (qs ? '?' + qs : '');
+
+    // Show loading
+    btn.classList.add('loading');
+    btn.innerHTML = '<span class="spinner"></span> Sending...';
+
+    // Find response area: derive id from endpoint card id
+    const card = btn.closest('.endpoint-card');
+    const resId = 'res-' + card.id.replace('ep-','');
+    const resArea = document.getElementById(resId);
+
+    const t0 = Date.now();
+    try {
+      const resp = await fetch(url);
+      const elapsed = Date.now() - t0;
+      let data;
+      const ct = resp.headers.get('content-type') || '';
+      if (ct.includes('json')) data = await resp.json();
+      else data = await resp.text();
+
+      showResponse(resArea, resp.status, elapsed, data);
+    } catch (e) {
+      showResponse(resArea, 0, Date.now() - t0, { error: e.message });
+    }
+
+    btn.classList.remove('loading');
+    btn.innerHTML = '▶ Send Request';
+  }
+
+  function showResponse(area, status, ms, data) {
+    const ok = status >= 200 && status < 300;
+    const chipClass = ok ? 'ok' : 'err';
+    const chipText = status === 0 ? 'ERR' : status;
+    const pretty = typeof data === 'string' ? escHtml(data) : syntaxHighlight(JSON.stringify(data, null, 2));
+
+    area.innerHTML = `
+      <div class="response-header">
+        <span class="response-label">Response</span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="response-time">${ms}ms</span>
+          <span class="status-chip ${chipClass}">HTTP ${chipText}</span>
+        </div>
+      </div>
+      <pre class="response-pre">${pretty}</pre>
+    `;
+    area.classList.add('visible');
+    area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function syntaxHighlight(json) {
+    return json.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, m => {
+        let cls = 'json-num';
+        if (/^"/.test(m)) cls = /:$/.test(m) ? 'json-key' : 'json-str';
+        else if (/true|false/.test(m)) cls = 'json-bool';
+        else if (/null/.test(m)) cls = 'json-null';
+        return '<span class="' + cls + '">' + m + '</span>';
+      });
+  }
+
+  // ── Mobile ──
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('visible');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('visible');
+  }
+
+  // ── Active nav on scroll ──
+  const navItems = document.querySelectorAll('.nav-item[href^="#"]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const match = document.querySelector('.nav-item[href="#' + e.target.id + '"]');
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('[id^="ep-"], #overview').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
