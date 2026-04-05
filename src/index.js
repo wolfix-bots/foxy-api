@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
-import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
 
-const require = createRequire(import.meta.url);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 const VERSION = '1.0.0';
@@ -11,8 +12,12 @@ const CREATOR = 'Foxy Tech';
 app.use(cors());
 app.use(express.json());
 
+// ── Serve static frontend ──
+app.use(express.static(join(__dirname, '..', 'public')));
+
 // ── Logging ──
 app.use((req, _res, next) => {
+    if (!req.path.startsWith('/api') && req.path !== '/health') return next();
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
     next();
 });
@@ -36,25 +41,6 @@ function ok(res, data) {
 function fail(res, message, status = 500) {
     return res.status(status).json({ success: false, creator: CREATOR, error: message });
 }
-
-// ── Root ──
-app.get('/', (_req, res) => {
-    res.json({
-        name: 'Foxy Tech API',
-        version: VERSION,
-        status: 'online',
-        endpoints: [
-            'GET /health',
-            'GET /api/ai/chat?q=<query>',
-            'GET /api/search/google?q=<query>',
-            'GET /api/search/lyrics?q=<query>',
-            'GET /api/search/wallpaper?q=<query>',
-            'GET /api/downloader/tiktok?url=<url>',
-            'GET /api/downloader/ytmp3?url=<url>',
-            'GET /api/downloader/ytmp4?url=<url>',
-        ]
-    });
-});
 
 // ── Health ──
 app.get('/health', (_req, res) => {
@@ -166,9 +152,14 @@ app.get('/api/downloader/ytmp4', async (req, res) => {
     }
 });
 
-// ── 404 ──
-app.use((_req, res) => {
-    res.status(404).json({ success: false, creator: CREATOR, error: 'Endpoint not found. Visit / for the list.' });
+// ── 404 for API routes ──
+app.use('/api/*', (_req, res) => {
+    res.status(404).json({ success: false, creator: CREATOR, error: 'API endpoint not found.' });
+});
+
+// ── SPA fallback for frontend ──
+app.get('*', (_req, res) => {
+    res.sendFile(join(__dirname, '..', 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
