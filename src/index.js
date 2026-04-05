@@ -840,6 +840,46 @@ app.get('/api/movies/staff/works', async (req, res) => {
     catch(e) { return fail(res, e.message); }
 });
 
+// ── Trailer ───────────────────────────────────────────────
+// Extracts trailer URL + cover from rich-detail and returns clean trailer object
+app.get('/api/movies/trailer', async (req, res) => {
+    const id = req.query.id || req.query.subjectId;
+    if (!id) return fail(res, 'Parameter id (subjectId) is required', 400);
+    try {
+        const d = await movieFetch(`/api/rich-detail?subjectId=${id}`);
+        const movie = (d && d.data) ? d.data : d;
+        const trailerUrl = movie.trailerUrl || movie.trailer || null;
+        const trailerCover = movie.trailerCover || movie.cover?.url || null;
+        const ytCode = trailerUrl
+            ? (trailerUrl.match(/(?:v=|youtu\.be\/)([A-Za-z0-9_-]{11})/)?.[1] || null)
+            : null;
+        return ok(res, {
+            subjectId: movie.subjectId || id,
+            title: movie.title || null,
+            trailerUrl,
+            trailerCover,
+            youtubeId: ytCode,
+            youtubeEmbed: ytCode ? `https://www.youtube.com/embed/${ytCode}` : null,
+            youtubeWatch: ytCode ? `https://www.youtube.com/watch?v=${ytCode}` : null,
+        });
+    }
+    catch(e) { return fail(res, e.message); }
+});
+
+// ── Live (live-streaming / broadcast movies) ──────────────
+app.get('/api/movies/live', async (req, res) => {
+    try { return ok(res, await movieFetch('/api/live')); }
+    catch(e) { return fail(res, e.message); }
+});
+
+// ── NewToxic file listing ─────────────────────────────────
+app.get('/api/movies/newtoxic/files', async (req, res) => {
+    const path = req.query.path;
+    if (!path) return fail(res, 'Parameter path is required (e.g. new/1/23390/Season-1/)', 400);
+    try { return ok(res, await movieFetch(`/api/newtoxic/files?path=${encodeURIComponent(path)}`)); }
+    catch(e) { return fail(res, e.message); }
+});
+
 // ══════════════════════════════════════════════════════════
 // ── OWN MOVIE ENDPOINTS (YTS — no key, always available) ──
 // ══════════════════════════════════════════════════════════
