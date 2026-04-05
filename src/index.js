@@ -12,7 +12,6 @@ const CREATOR = 'Foxy Tech';
 app.use(cors());
 app.use(express.json());
 app.use(express.static(join(__dirname, '..', 'public')));
-
 app.use((req, _res, next) => {
     if (req.path.startsWith('/api') || req.path === '/health')
         console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
@@ -21,21 +20,18 @@ app.use((req, _res, next) => {
 
 async function apiFetch(url, timeout = 15000) {
     const { default: fetch } = await import('node-fetch');
-    const controller = new AbortController();
-    const t = setTimeout(() => controller.abort(), timeout);
-    try {
-        const res = await fetch(url, { signal: controller.signal });
-        return await res.json();
-    } finally { clearTimeout(t); }
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), timeout);
+    try { const r = await fetch(url, { signal: ctrl.signal }); return await r.json(); }
+    finally { clearTimeout(t); }
 }
+const ok   = (res, d)      => res.json({ success: true, creator: CREATOR, version: VERSION, ...d });
+const fail = (res, m, s=500) => res.status(s).json({ success: false, creator: CREATOR, error: m });
 
-function ok(res, data)          { return res.json({ success: true, creator: CREATOR, version: VERSION, ...data }); }
-function fail(res, msg, s = 500){ return res.status(s).json({ success: false, creator: CREATOR, error: msg }); }
+// ── Health ──
+app.get('/health', (_q, r) => r.json({ status: 'ok', uptime: process.uptime(), timestamp: Date.now() }));
 
-// ── Health ──────────────────────────────────────────────────────────
-app.get('/health', (_req, res) => res.json({ status: 'ok', uptime: process.uptime(), timestamp: Date.now() }));
-
-// ── AI ──────────────────────────────────────────────────────────────
+// ── AI ──
 app.get('/api/ai/chat', async (req, res) => {
     const q = req.query.q || req.query.query;
     if (!q) return fail(res, 'Parameter q is required', 400);
@@ -63,10 +59,27 @@ app.get('/api/ai/gemini', async (req, res) => {
         const d = await apiFetch(`https://apis.xwolf.space/api/ai/gemini?q=${encodeURIComponent(q)}`);
         if (!d.status && !d.success) throw new Error(d.message || 'AI error');
         return ok(res, { result: d.result });
+    } catch (e) {
+        // fallback: xcasper gemini
+        try {
+            const d2 = await apiFetch(`https://apis.xcasper.space/api/ai/gemini?q=${encodeURIComponent(q)}`);
+            if (!d2.success) throw new Error('Both Gemini sources failed');
+            return ok(res, { result: d2.reply });
+        } catch (e2) { return fail(res, e2.message); }
+    }
+});
+
+app.get('/api/ai/mistral', async (req, res) => {
+    const q = req.query.q || req.query.query || req.query.message;
+    if (!q) return fail(res, 'Parameter q is required', 400);
+    try {
+        const d = await apiFetch(`https://apis.xcasper.space/api/ai/mistral?message=${encodeURIComponent(q)}`);
+        if (!d.success) throw new Error(d.message || 'AI error');
+        return ok(res, { result: d.reply });
     } catch (e) { return fail(res, e.message); }
 });
 
-// ── Search ──────────────────────────────────────────────────────────
+// ── Search ──
 app.get('/api/search/google', async (req, res) => {
     const q = req.query.q || req.query.query;
     if (!q) return fail(res, 'Parameter q is required', 400);
@@ -74,6 +87,16 @@ app.get('/api/search/google', async (req, res) => {
         const d = await apiFetch(`https://api.giftedtech.co.ke/api/search/google?query=${encodeURIComponent(q)}&apikey=gifted`);
         if (!d.success) throw new Error('Search failed');
         return ok(res, { results: d.results });
+    } catch (e) { return fail(res, e.message); }
+});
+
+app.get('/api/search/youtube', async (req, res) => {
+    const q = req.query.q || req.query.query;
+    if (!q) return fail(res, 'Parameter q is required', 400);
+    try {
+        const d = await apiFetch(`https://apis.xcasper.space/api/search/youtube?query=${encodeURIComponent(q)}`);
+        if (!d.success) throw new Error('Search failed');
+        return ok(res, { results: d.videos, count: d.count });
     } catch (e) { return fail(res, e.message); }
 });
 
@@ -106,7 +129,7 @@ app.get('/api/search/news', async (req, res) => {
     } catch (e) { return fail(res, e.message); }
 });
 
-// ── Tools ───────────────────────────────────────────────────────────
+// ── Tools ──
 app.get('/api/tools/weather', async (req, res) => {
     const city = req.query.city || req.query.q;
     if (!city) return fail(res, 'Parameter city is required', 400);
@@ -127,7 +150,7 @@ app.get('/api/tools/qrcode', async (req, res) => {
     } catch (e) { return fail(res, e.message); }
 });
 
-// ── Stalk ───────────────────────────────────────────────────────────
+// ── Stalk ──
 app.get('/api/stalk/github', async (req, res) => {
     const username = req.query.username || req.query.q;
     if (!username) return fail(res, 'Parameter username is required', 400);
@@ -150,7 +173,7 @@ app.get('/api/stalk/tiktok', async (req, res) => {
     } catch (e) { return fail(res, e.message); }
 });
 
-// ── Downloader ──────────────────────────────────────────────────────
+// ── Downloader ──
 app.get('/api/downloader/ytmp3', async (req, res) => {
     const url = req.query.url || req.query.q;
     if (!url) return fail(res, 'Parameter url is required', 400);
@@ -178,7 +201,18 @@ app.get('/api/downloader/tiktok', async (req, res) => {
     try {
         const d = await apiFetch(`https://apis.xcasper.space/api/downloader/tiktok?url=${encodeURIComponent(url)}`, 30000);
         if (!d.success || d.error) throw new Error(d.message || 'Download failed');
-        return ok(res, { result: d.result || d });
+        return ok(res, { result: d });
+    } catch (e) { return fail(res, e.message); }
+});
+
+app.get('/api/downloader/spotify', async (req, res) => {
+    const url = req.query.url;
+    if (!url) return fail(res, 'Parameter url is required', 400);
+    if (!url.includes('spotify.com/track')) return fail(res, 'Invalid Spotify track URL', 400);
+    try {
+        const d = await apiFetch(`https://apis.xcasper.space/api/downloader/spotify?url=${encodeURIComponent(url)}`, 30000);
+        if (!d.success) throw new Error(d.message || 'Download failed');
+        return ok(res, { result: d.track || d });
     } catch (e) { return fail(res, e.message); }
 });
 
@@ -192,10 +226,8 @@ app.get('/api/downloader/facebook', async (req, res) => {
     } catch (e) { return fail(res, e.message); }
 });
 
-// ── 404 for API ──────────────────────────────────────────────────────
-app.use('/api/*', (_req, res) => res.status(404).json({ success: false, creator: CREATOR, error: 'Endpoint not found.' }));
+// ── 404 / SPA ──
+app.use('/api/*', (_q, r) => r.status(404).json({ success: false, creator: CREATOR, error: 'Endpoint not found.' }));
+app.get('*', (_q, r) => r.sendFile(join(__dirname, '..', 'public', 'index.html')));
 
-// ── SPA fallback ─────────────────────────────────────────────────────
-app.get('*', (_req, res) => res.sendFile(join(__dirname, '..', 'public', 'index.html')));
-
-app.listen(PORT, () => console.log(`Foxy Tech API v${VERSION} running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Foxy Tech API v${VERSION} on port ${PORT}`));
