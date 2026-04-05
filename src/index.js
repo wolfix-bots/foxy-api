@@ -25,10 +25,25 @@ async function apiFetch(url, timeout = 15000, headers = {}) {
     const t = setTimeout(() => ctrl.abort(), timeout);
     try {
         const r = await fetch(url, { signal: ctrl.signal, headers });
+        const ct = r.headers.get('content-type') || '';
+        if (!ct.includes('json') && !ct.includes('text/plain')) {
+            const text = await r.text();
+            if (text.includes('<!DOCTYPE') || text.includes('<html'))
+                throw new Error(`Upstream service returned an HTML page instead of JSON (HTTP ${r.status}) — it may be unavailable or blocking server requests`);
+            throw new Error(`Unexpected response format (HTTP ${r.status}): ${text.slice(0, 100).replace(/\s+/g, ' ')}`);
+        }
         return await r.json();
     } finally { clearTimeout(t); }
 }
-const ok   = (res, d)        => res.json({ success: true, creator: CREATOR, version: VERSION, ...d });
+
+// Strip any upstream branding fields so our creator always wins
+function clean(d) {
+    if (!d || typeof d !== 'object') return d;
+    const { creator, provider, code, status, ...rest } = d;
+    return rest;
+}
+
+const ok   = (res, d)        => res.json({ success: true, creator: CREATOR, version: VERSION, ...clean(d) });
 const fail = (res, m, s=500) => res.status(s).json({ success: false, creator: CREATOR, error: m });
 
 // ── Health ──────────────────────────────────────────────────────
@@ -823,6 +838,112 @@ app.get('/api/movies/staff/works', async (req, res) => {
     const page = req.query.page || '1';
     try { return ok(res, await movieFetch(`/api/staff/works?staffId=${id}&page=${page}&perPage=10`)); }
     catch(e) { return fail(res, e.message); }
+});
+
+// ══════════════════════════════════════════════════════════
+// ── OWN MOVIE ENDPOINTS (YTS — no key, always available) ──
+// ══════════════════════════════════════════════════════════
+const YTS = 'https://yts.mx/api/v2';
+
+// Helper — map YTS movie object to clean format
+function ytsMovie(m) {
+    return {
+        id: m.id,
+        title: m.title,
+        year: m.year,
+        rating: m.rating,
+        runtime: m.runtime,
+        genres: m.genres,
+        summary: m.summary,
+        language: m.language,
+        mpa_rating: m.mpa_rating,
+        large_cover: m.large_cover_image,
+        medium_cover: m.medium_cover_image,
+        slug: m.slug,
+        imdb_code: m.imdb_code,
+        yt_trailer: m.yt_trailer_code ? `https://www.youtube.com/watch?v=${m.yt_trailer_code}` : null,
+        torrents: (m.torrents || []).map(t => ({
+            url: t.url, quality: t.quality, type: t.type,
+            size: t.size, seeds: t.seeds, peers: t.peers
+        })),
+        cast: (m.cast || []).slice(0, 5).map(c => ({ name: c.name, character: c.character_name, imdb: c.imdb_code })),
+        background: m.background_image_original,
+    };
+}
+
+app.get('/api/stream/search', async (req, res) => {
+    const q = req.query.q || req.query.query;
+    if (!q) return fail(res, 'Parameter q (movie title) is required', 400);
+    const page = parseInt(req.query.page) || 1;
+    const limit = Math.min(parseInt(req.query.limit) || 10, 50);
+    const genre = req.query.genre || '';
+    const rating = parseFloat(req.query.rating) || 0;
+    const sort = req.query.sort || 'relevance'; // date_added, seeds, peers, rating, like_count, title, year
+    try {
+        let url = `${YTS}/list_movies.json?query_term=${encodeURIComponent(q)}&page=${page}&limit=${limit}&sort_by=${sort}`;
+        if (genre) url += `&genre=${encodeURIComponent(genre)}`;
+        if (rating > 0) url += `&minimum_rating=${rating}`;
+        const d = await apiFetch(url);
+        const movies = (d.data?.movies || []).map(ytsMovie);
+        return ok(res, { total: d.data?.movie_count || 0, page, limit, movies });
+    } catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/stream/trending', async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = Math.min(parseInt(req.query.limit) || 20, 50);
+    try {
+        const d = await apiFetch(`${YTS}/list_movies.json?sort_by=seeds&limit=${limit}&page=${page}&minimum_rating=6`);
+        return ok(res, { total: d.data?.movie_count || 0, page, limit, movies: (d.data?.movies || []).map(ytsMovie) });
+    } catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/stream/latest', async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = Math.min(parseInt(req.query.limit) || 20, 50);
+    try {
+        const d = await apiFetch(`${YTS}/list_movies.json?sort_by=date_added&limit=${limit}&page=${page}`);
+        return ok(res, { total: d.data?.movie_count || 0, page, limit, movies: (d.data?.movies || []).map(ytsMovie) });
+    } catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/stream/top-rated', async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = Math.min(parseInt(req.query.limit) || 20, 50);
+    try {
+        const d = await apiFetch(`${YTS}/list_movies.json?sort_by=rating&limit=${limit}&page=${page}&minimum_rating=7`);
+        return ok(res, { total: d.data?.movie_count || 0, page, limit, movies: (d.data?.movies || []).map(ytsMovie) });
+    } catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/stream/by-genre', async (req, res) => {
+    const genre = req.query.genre;
+    if (!genre) return fail(res, 'Parameter genre is required (e.g. Action, Comedy, Horror, Drama)', 400);
+    const page = parseInt(req.query.page) || 1;
+    const sort = req.query.sort || 'rating';
+    try {
+        const d = await apiFetch(`${YTS}/list_movies.json?genre=${encodeURIComponent(genre)}&sort_by=${sort}&limit=20&page=${page}&minimum_rating=5`);
+        return ok(res, { genre, total: d.data?.movie_count || 0, page, movies: (d.data?.movies || []).map(ytsMovie) });
+    } catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/stream/detail', async (req, res) => {
+    const id = parseInt(req.query.id);
+    if (!id) return fail(res, 'Parameter id (YTS movie id) is required', 400);
+    try {
+        const d = await apiFetch(`${YTS}/movie_details.json?movie_id=${id}&with_images=true&with_cast=true`);
+        if (!d.data?.movie) return fail(res, 'Movie not found');
+        return ok(res, { movie: ytsMovie(d.data.movie) });
+    } catch(e) { return fail(res, e.message); }
+});
+
+app.get('/api/stream/similar', async (req, res) => {
+    const id = parseInt(req.query.id);
+    if (!id) return fail(res, 'Parameter id (YTS movie id) is required', 400);
+    try {
+        const d = await apiFetch(`${YTS}/movie_suggestions.json?movie_id=${id}`);
+        return ok(res, { movies: (d.data?.movies || []).map(ytsMovie) });
+    } catch(e) { return fail(res, e.message); }
 });
 
 // ── 404 / SPA ──
