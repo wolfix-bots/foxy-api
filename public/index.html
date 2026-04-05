@@ -104,7 +104,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   <section class="hero" id="overview">
     <div class="hero-badge">Live &middot; Free &middot; No API Key Required</div>
     <h1>Foxy Tech <span class="accent">API</span></h1>
-    <p>A multi-purpose REST API covering AI chat, web search, news, weather, QR codes, screenshots, word utilities, currency, country info, fun generators, social stalking and media downloaders. All free with no API key needed.</p>
+    <p>A multi-purpose REST API covering AI chat, web search, news, weather, QR codes, screenshots, word utilities, currency, country info, fun generators, social stalking and media downloaders. All free with no API key needed. Every endpoint below is pre-filled with a working example &mdash; just hit <strong>Send Request</strong>.</p>
     <div class="hero-stats">
       <div class="stat"><div class="num">49</div><div class="label">Endpoints</div></div>
       <div class="stat"><div class="num">8</div><div class="label">Categories</div></div>
@@ -126,7 +126,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Send any question and get a smart GPT response. Works for Q&A, summaries, explanations and general conversation.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: text result</span><span class="meta-chip">Source: GiftedTech</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="What is the speed of light?" data-param="q" oninput="updateUrl(this)"/><span class="pdesc">Your question</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="What is the speed of light?" value="What is the speed of light?" data-param="q" oninput="rebuildFromInput(this)"/><span class="pdesc">Your question</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/ai/chat</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -147,7 +147,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Chat with DeepSeek — known for detailed reasoning, technical explanations, coding help and step-by-step problem solving.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: text result</span><span class="meta-chip">Source: xwolf</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Explain recursion step by step" data-param="q" oninput="updateUrl(this)"/><span class="pdesc">Your question</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Explain recursion step by step" value="Explain recursion step by step" data-param="q" oninput="rebuildFromInput(this)"/><span class="pdesc">Your question</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/ai/deepseek</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -168,7 +168,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Google Gemini AI — excellent for complex analysis, creative writing, code help and multilingual responses. Has automatic fallback.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: text result</span><span class="meta-chip">Has fallback</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Write a poem about the ocean" data-param="q" oninput="updateUrl(this)"/><span class="pdesc">Your question</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Write a poem about the ocean" value="Write a poem about the ocean" data-param="q" oninput="rebuildFromInput(this)"/><span class="pdesc">Your question</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/ai/gemini</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -189,7 +189,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Mistral AI from France — fast, efficient, strong multilingual support and concise answers. Great lightweight GPT alternative.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: text result</span><span class="meta-chip">Source: xcasper</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Translate hello to French" data-param="q" oninput="updateUrl(this)"/><span class="pdesc">Your question</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Translate hello to French" value="Translate hello to French" data-param="q" oninput="rebuildFromInput(this)"/><span class="pdesc">Your question</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/ai/mistral</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -210,7 +210,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Search the web and get structured results — titles, descriptions and direct links. Returns up to 5 top results per query.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: array of results</span><span class="meta-chip">Source: GiftedTech</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="latest AI news 2025" data-param="q" oninput="updateUrl(this)"/><span class="pdesc">Search term or question</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="latest AI news 2025" value="latest AI news 2025" data-param="q" oninput="rebuildFromInput(this)"/><span class="pdesc">Search term or question</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/search/google</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -231,7 +231,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Search YouTube and get a list of videos with titles, channel names, view counts, durations, thumbnails and direct links.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: array of videos</span><span class="meta-chip">Source: xcasper</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="lofi hip hop music" data-param="q" oninput="updateUrl(this)"/><span class="pdesc">Search term</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="lofi hip hop music" value="lofi hip hop music" data-param="q" oninput="rebuildFromInput(this)"/><span class="pdesc">Search term</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/search/youtube</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -252,7 +252,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Look up full song lyrics by name or artist. Returns the complete lyrics text, song title and artist name when found.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: artist + lyrics</span><span class="meta-chip">Source: GiftedTech</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Blinding Lights The Weeknd" data-param="q" oninput="updateUrl(this)"/><span class="pdesc">Song name or artist</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Blinding Lights The Weeknd" value="Blinding Lights The Weeknd" data-param="q" oninput="rebuildFromInput(this)"/><span class="pdesc">Song name or artist</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/search/lyrics</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -273,7 +273,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Search for high-quality wallpaper images. Returns an array of results each with a category label and a direct image URL.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: array of image URLs</span><span class="meta-chip">Source: GiftedTech</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq"></span><input class="pinput" placeholder="nature landscape" data-param="q" oninput="updateUrl(this)"/><span class="pdesc">Search term (default: nature)</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq"></span><input class="pinput" placeholder="nature landscape" value="nature landscape" data-param="q" oninput="rebuildFromInput(this)"/><span class="pdesc">Search term (default: nature)</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/search/wallpaper</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -291,10 +291,10 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
       </div>
       <div class="ep-body"><div class="ep-inner">
         <div class="ep-desc-block">
-          <p>Get the latest news articles on any topic from WikiNews. Returns headlines and source links for current events monitoring.</p>
-          <div class="ep-desc-meta"><span class="meta-chip">Returns: array of articles</span><span class="meta-chip">Source: xwolf + WikiNews</span><span class="meta-chip">Timeout: 15s</span></div>
+          <p>Get the latest news articles on any topic. Returns headlines and source links for current events monitoring.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: array of articles</span><span class="meta-chip">Source: xwolf</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="technology" data-param="q" oninput="updateUrl(this)"/><span class="pdesc">Topic or keyword</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="technology" value="technology" data-param="q" oninput="rebuildFromInput(this)"/><span class="pdesc">Topic or keyword</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/search/news</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -315,7 +315,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get real-time weather data for any city worldwide — temperature, humidity, wind speed and current condition description.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: weather object</span><span class="meta-chip">Source: xwolf</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">city</span><span class="preq">*</span><input class="pinput" placeholder="Nairobi" data-param="city" oninput="updateUrl(this)"/><span class="pdesc">City name</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">city</span><span class="preq">*</span><input class="pinput" placeholder="Nairobi" value="Nairobi" data-param="city" oninput="rebuildFromInput(this)"/><span class="pdesc">City name</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/tools/weather</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -336,7 +336,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Generate a QR code for any text, URL or message. Returns a direct link to the QR code image ready to embed or share.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: image URL</span><span class="meta-chip">Source: xwolf</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="https://github.com/wolfix-bots" data-param="text" oninput="updateUrl(this)"/><span class="pdesc">Text, URL or any content</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="https://github.com/wolfix-bots" value="https://github.com/wolfix-bots" data-param="text" oninput="rebuildFromInput(this)"/><span class="pdesc">Text, URL or any content</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/tools/qrcode</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -357,7 +357,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Take a screenshot of any website and get a direct image URL. Custom width/height supported. No API key required.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: image URL</span><span class="meta-chip">Via CDN</span><span class="meta-chip">No API key</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://github.com" data-param="url" oninput="updateUrl(this)"/><span class="pdesc">Full URL (include https://)</span></div><div class="pr"><span class="pname">width</span><span class="preq"></span><input class="pinput" placeholder="1280" data-param="width" oninput="updateUrl(this)"/><span class="pdesc">Width px (max 1920)</span></div><div class="pr"><span class="pname">height</span><span class="preq"></span><input class="pinput" placeholder="720" data-param="height" oninput="updateUrl(this)"/><span class="pdesc">Height px (max 1080)</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://github.com" value="https://github.com" data-param="url" oninput="rebuildFromInput(this)"/><span class="pdesc">Full URL (include https://)</span></div><div class="pr"><span class="pname">width</span><span class="preq"></span><input class="pinput" placeholder="1280" data-param="width" oninput="rebuildFromInput(this)"/><span class="pdesc">Width px (max 1920)</span></div><div class="pr"><span class="pname">height</span><span class="preq"></span><input class="pinput" placeholder="720" data-param="height" oninput="rebuildFromInput(this)"/><span class="pdesc">Height px (max 1080)</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/tools/screenshot</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -378,7 +378,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Calculate exact age from a date of birth. Returns years, months, days and total days lived. Fully self-built — no external API.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: age breakdown</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">dob</span><span class="preq">*</span><input class="pinput" placeholder="1998-05-20" data-param="dob" oninput="updateUrl(this)"/><span class="pdesc">Date of birth (YYYY-MM-DD)</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">dob</span><span class="preq">*</span><input class="pinput" placeholder="1998-05-20" value="1998-05-20" data-param="dob" oninput="rebuildFromInput(this)"/><span class="pdesc">Date of birth (YYYY-MM-DD)</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/tools/age</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -399,7 +399,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Calculate how many days, hours and minutes remain until (or since) any date. Fully self-built — no external API.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: time breakdown</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">date</span><span class="preq">*</span><input class="pinput" placeholder="2025-12-25" data-param="date" oninput="updateUrl(this)"/><span class="pdesc">Target date (YYYY-MM-DD)</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">date</span><span class="preq">*</span><input class="pinput" placeholder="2026-12-31" value="2026-12-31" data-param="date" oninput="rebuildFromInput(this)"/><span class="pdesc">Target date (YYYY-MM-DD)</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/tools/countdown</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -420,7 +420,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Fetch any public GitHub profile — display name, bio, location, followers, following count, public repos and avatar URL.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: profile object</span><span class="meta-chip">Source: xwolf</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">username</span><span class="preq">*</span><input class="pinput" placeholder="torvalds" data-param="username" oninput="updateUrl(this)"/><span class="pdesc">GitHub username</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">username</span><span class="preq">*</span><input class="pinput" placeholder="torvalds" value="torvalds" data-param="username" oninput="rebuildFromInput(this)"/><span class="pdesc">GitHub username</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/stalk/github</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -441,7 +441,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Fetch public TikTok profile data — nickname, bio, follower/following counts, total likes, video count and verification.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: profile object</span><span class="meta-chip">Source: xwolf</span><span class="meta-chip">Timeout: 15s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">username</span><span class="preq">*</span><input class="pinput" placeholder="tiktok" data-param="username" oninput="updateUrl(this)"/><span class="pdesc">TikTok username (no @)</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">username</span><span class="preq">*</span><input class="pinput" placeholder="tiktok" value="tiktok" data-param="username" oninput="rebuildFromInput(this)"/><span class="pdesc">TikTok username (no @)</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/stalk/tiktok</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -462,7 +462,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Convert any YouTube video to MP3. Returns a direct download link, title, quality and thumbnail. Accepts youtu.be short links too.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: download link + metadata</span><span class="meta-chip">Source: xwolf</span><span class="meta-chip">Timeout: 35s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://youtu.be/dQw4w9WgXcQ" data-param="url" oninput="updateUrl(this)"/><span class="pdesc">YouTube URL or youtu.be link</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://youtu.be/dQw4w9WgXcQ" value="https://youtu.be/dQw4w9WgXcQ" data-param="url" oninput="rebuildFromInput(this)"/><span class="pdesc">YouTube URL or youtu.be link</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/downloader/ytmp3</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -483,7 +483,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Download any YouTube video as MP4 (720p). Returns direct download link, title, thumbnail. Accepts youtu.be short links too.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: download link + metadata</span><span class="meta-chip">Source: xwolf</span><span class="meta-chip">Timeout: 35s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://youtu.be/dQw4w9WgXcQ" data-param="url" oninput="updateUrl(this)"/><span class="pdesc">YouTube URL or youtu.be link</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://youtu.be/dQw4w9WgXcQ" value="https://youtu.be/dQw4w9WgXcQ" data-param="url" oninput="rebuildFromInput(this)"/><span class="pdesc">YouTube URL or youtu.be link</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/downloader/ytmp4</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -504,7 +504,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Download any public TikTok video without the watermark. Returns a clean MP4 download URL, title and thumbnail.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: clean video link</span><span class="meta-chip">Source: xcasper</span><span class="meta-chip">Timeout: 30s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://www.tiktok.com/@user/video/..." data-param="url" oninput="updateUrl(this)"/><span class="pdesc">Full TikTok video URL</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://www.tiktok.com/@tiktok/video/7106594312292453675" value="https://www.tiktok.com/@tiktok/video/7106594312292453675" data-param="url" oninput="rebuildFromInput(this)"/><span class="pdesc">Full TikTok video URL</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/downloader/tiktok</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -525,7 +525,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Download a Spotify track as MP3. Provide the full track URL (open.spotify.com/track/...). Tracks only — no playlists.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: track info + download</span><span class="meta-chip">Source: xcasper</span><span class="meta-chip">Timeout: 30s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://open.spotify.com/track/..." data-param="url" oninput="updateUrl(this)"/><span class="pdesc">Spotify track URL</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT" value="https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT" data-param="url" oninput="rebuildFromInput(this)"/><span class="pdesc">Spotify track URL</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/downloader/spotify</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -546,7 +546,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Extract download links from any public Facebook video or reel. Returns title, thumbnail and quality options with direct URLs.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: title + quality links</span><span class="meta-chip">Source: fb.xcasper.space</span><span class="meta-chip">Timeout: 30s</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://www.facebook.com/watch?v=..." data-param="url" oninput="updateUrl(this)"/><span class="pdesc">Facebook video or reel URL</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">url</span><span class="preq">*</span><input class="pinput" placeholder="https://www.facebook.com/watch?v=728464697928598" value="https://www.facebook.com/watch?v=728464697928598" data-param="url" oninput="rebuildFromInput(this)"/><span class="pdesc">Facebook video or reel URL</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/downloader/facebook</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -567,7 +567,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get a random safe joke from JokeAPI. Categories: Any (default), Programming, Misc, Pun, Spooky, Christmas. Safe-mode filtered.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: joke text</span><span class="meta-chip">Source: JokeAPI</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">category</span><span class="preq"></span><input class="pinput" placeholder="Programming" data-param="category" oninput="updateUrl(this)"/><span class="pdesc">Any, Programming, Misc, Pun, Dark</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">category</span><span class="preq"></span><input class="pinput" placeholder="Programming" value="Programming" data-param="category" oninput="rebuildFromInput(this)"/><span class="pdesc">Any, Programming, Misc, Pun, Dark</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/fun/joke</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -588,7 +588,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get a completely random dad joke — the kind that makes you groan and chuckle. No parameters needed.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: joke text</span><span class="meta-chip">Source: icanhazdadjoke.com</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required.</div>
+        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required — hit Send Request to try it.</div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/fun/dadjoke</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -609,7 +609,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get a random interesting (but useless) fact. Great for trivia, fun messages or filling a moment of boredom.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: fact + source link</span><span class="meta-chip">Source: uselessfacts.jsph.pl</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required.</div>
+        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required — hit Send Request to try it.</div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/fun/fact</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -630,7 +630,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get a random piece of life advice. Sometimes wise, sometimes obvious — always worth reading. Powered by the Advice Slip API.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: advice text</span><span class="meta-chip">Source: adviceslip.com</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required.</div>
+        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required — hit Send Request to try it.</div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/fun/advice</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -651,7 +651,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get a random positive affirmation to brighten your day. No parameters needed — just a good, uplifting sentence.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: affirmation text</span><span class="meta-chip">Source: affirmations.dev</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required.</div>
+        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required — hit Send Request to try it.</div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/fun/affirmation</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -672,7 +672,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get a randomly generated humorous insult from Evil Insult Generator. For entertainment purposes only!</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: insult text</span><span class="meta-chip">Source: evilinsult.com</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required.</div>
+        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required — hit Send Request to try it.</div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/fun/insult</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -693,7 +693,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get a random Chuck Norris fact/joke from the official Chuck Norris API. He counted to infinity — twice.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: joke text</span><span class="meta-chip">Source: chucknorris.io</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required.</div>
+        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required — hit Send Request to try it.</div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/fun/chuck</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -714,7 +714,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get a random dog image URL from the Dog CEO API. Hundreds of breeds, thousands of images. No parameters needed.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: image URL</span><span class="meta-chip">Source: dog.ceo</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required.</div>
+        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required — hit Send Request to try it.</div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/fun/dog</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -735,7 +735,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get a random cat image URL. Returns the URL plus the original width and height dimensions. No parameters needed.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: image URL + dimensions</span><span class="meta-chip">Source: thecatapi.com</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required.</div>
+        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required — hit Send Request to try it.</div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/fun/cat</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -756,7 +756,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get a random activity suggestion for when you are bored. Returns the name, type, participant count and estimated cost.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: activity object</span><span class="meta-chip">Source: bored-api.appbrewery.com</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required.</div>
+        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required — hit Send Request to try it.</div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/fun/bored</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -777,7 +777,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Look up any English word — phonetics, audio pronunciation URL, part of speech and up to 2 definitions with example sentences.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: definition object</span><span class="meta-chip">Source: dictionaryapi.dev</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">word</span><span class="preq">*</span><input class="pinput" placeholder="eloquent" data-param="word" oninput="updateUrl(this)"/><span class="pdesc">English word to look up</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">word</span><span class="preq">*</span><input class="pinput" placeholder="eloquent" value="eloquent" data-param="word" oninput="rebuildFromInput(this)"/><span class="pdesc">English word to look up</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/info/dictionary</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -798,7 +798,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get detailed info about any country — capital, region, population, languages, currencies, timezones, flag image and country code.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: country object</span><span class="meta-chip">Source: restcountries.com</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">name</span><span class="preq">*</span><input class="pinput" placeholder="Kenya" data-param="name" oninput="updateUrl(this)"/><span class="pdesc">Country name (English)</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">name</span><span class="preq">*</span><input class="pinput" placeholder="Kenya" value="Kenya" data-param="name" oninput="rebuildFromInput(this)"/><span class="pdesc">Country name (English)</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/info/country</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -819,7 +819,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Convert between any two currencies using live exchange rates. Returns the rate and converted amount. Default is 1 USD to EUR.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: rate + converted amount</span><span class="meta-chip">Source: frankfurter.app</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">from</span><span class="preq"></span><input class="pinput" placeholder="USD" data-param="from" oninput="updateUrl(this)"/><span class="pdesc">Source currency (default: USD)</span></div><div class="pr"><span class="pname">to</span><span class="preq"></span><input class="pinput" placeholder="KES" data-param="to" oninput="updateUrl(this)"/><span class="pdesc">Target currency</span></div><div class="pr"><span class="pname">amount</span><span class="preq"></span><input class="pinput" placeholder="1" data-param="amount" oninput="updateUrl(this)"/><span class="pdesc">Amount to convert</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">from</span><span class="preq"></span><input class="pinput" placeholder="USD" value="USD" data-param="from" oninput="rebuildFromInput(this)"/><span class="pdesc">Source currency (default: USD)</span></div><div class="pr"><span class="pname">to</span><span class="preq"></span><input class="pinput" placeholder="KES" value="KES" data-param="to" oninput="rebuildFromInput(this)"/><span class="pdesc">Target currency</span></div><div class="pr"><span class="pname">amount</span><span class="preq"></span><input class="pinput" placeholder="1" value="100" data-param="amount" oninput="rebuildFromInput(this)"/><span class="pdesc">Amount to convert</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/info/currency</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -840,7 +840,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get full info about any hex color — color name, RGB, HSL, HSV values and a sample color image URL. No # needed.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: color object</span><span class="meta-chip">Source: thecolorapi.com</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">hex</span><span class="preq"></span><input class="pinput" placeholder="3498db" data-param="hex" oninput="updateUrl(this)"/><span class="pdesc">Hex color code (no #)</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">hex</span><span class="preq"></span><input class="pinput" placeholder="3498db" value="3498db" data-param="hex" oninput="rebuildFromInput(this)"/><span class="pdesc">Hex color code (no #)</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/info/color</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -861,7 +861,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Get the current date and time for any timezone using IANA names. Returns datetime, UTC offset, day of week and week number.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: time object</span><span class="meta-chip">Source: worldtimeapi.org</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">timezone</span><span class="preq"></span><input class="pinput" placeholder="Africa/Nairobi" data-param="timezone" oninput="updateUrl(this)"/><span class="pdesc">IANA timezone (e.g. America/New_York)</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">timezone</span><span class="preq"></span><input class="pinput" placeholder="Africa/Nairobi" value="Africa/Nairobi" data-param="timezone" oninput="rebuildFromInput(this)"/><span class="pdesc">IANA timezone (e.g. America/New_York)</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/info/time</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -882,7 +882,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Generate a cryptographically secure random password. Control length, symbols, numbers and uppercase. Built using Node.js crypto.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: password string</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">length</span><span class="preq"></span><input class="pinput" placeholder="16" data-param="length" oninput="updateUrl(this)"/><span class="pdesc">Length (4-128, default: 16)</span></div><div class="pr"><span class="pname">symbols</span><span class="preq"></span><input class="pinput" placeholder="true" data-param="symbols" oninput="updateUrl(this)"/><span class="pdesc">Include symbols (true/false)</span></div><div class="pr"><span class="pname">numbers</span><span class="preq"></span><input class="pinput" placeholder="true" data-param="numbers" oninput="updateUrl(this)"/><span class="pdesc">Include numbers (true/false)</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">length</span><span class="preq"></span><input class="pinput" placeholder="16" value="16" data-param="length" oninput="rebuildFromInput(this)"/><span class="pdesc">Length (4-128, default: 16)</span></div><div class="pr"><span class="pname">symbols</span><span class="preq"></span><input class="pinput" placeholder="true" value="true" data-param="symbols" oninput="rebuildFromInput(this)"/><span class="pdesc">Include symbols (true/false)</span></div><div class="pr"><span class="pname">numbers</span><span class="preq"></span><input class="pinput" placeholder="true" value="true" data-param="numbers" oninput="rebuildFromInput(this)"/><span class="pdesc">Include numbers (true/false)</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/password</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -903,7 +903,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Generate one or more random UUID v4 values. Cryptographically secure. Built using Node.js crypto.randomUUID().</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: uuid or array</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">count</span><span class="preq"></span><input class="pinput" placeholder="1" data-param="count" oninput="updateUrl(this)"/><span class="pdesc">Number of UUIDs (1-20)</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">count</span><span class="preq"></span><input class="pinput" placeholder="1" value="3" data-param="count" oninput="rebuildFromInput(this)"/><span class="pdesc">Number of UUIDs (1-20)</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/uuid</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -924,7 +924,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Generate a hash of any text using MD5, SHA1, SHA256 or SHA512. Returns the hex digest. Built using Node.js built-in crypto.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: hex hash string</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="hello world" data-param="text" oninput="updateUrl(this)"/><span class="pdesc">Text to hash</span></div><div class="pr"><span class="pname">algo</span><span class="preq"></span><input class="pinput" placeholder="sha256" data-param="algo" oninput="updateUrl(this)"/><span class="pdesc">md5, sha1, sha256, sha512</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="hello world" value="hello world" data-param="text" oninput="rebuildFromInput(this)"/><span class="pdesc">Text to hash</span></div><div class="pr"><span class="pname">algo</span><span class="preq"></span><input class="pinput" placeholder="sha256" value="sha256" data-param="algo" oninput="rebuildFromInput(this)"/><span class="pdesc">md5, sha1, sha256, sha512</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/hash</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -945,7 +945,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Encode any text to Base64 or decode a Base64 string back to plain text. Set action=decode to reverse.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: result string</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="Hello, World!" data-param="text" oninput="updateUrl(this)"/><span class="pdesc">Text to encode or base64 to decode</span></div><div class="pr"><span class="pname">action</span><span class="preq"></span><input class="pinput" placeholder="encode" data-param="action" oninput="updateUrl(this)"/><span class="pdesc">encode or decode</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="Hello, World!" value="Hello, World!" data-param="text" oninput="rebuildFromInput(this)"/><span class="pdesc">Text to encode or base64 to decode</span></div><div class="pr"><span class="pname">action</span><span class="preq"></span><input class="pinput" placeholder="encode" value="encode" data-param="action" oninput="rebuildFromInput(this)"/><span class="pdesc">encode or decode</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/base64</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -966,7 +966,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Convert text between cases — UPPER, lower, Title, camelCase, snake_case, kebab-case or reversed. Self-built.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: converted text</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="hello world example" data-param="text" oninput="updateUrl(this)"/><span class="pdesc">Input text</span></div><div class="pr"><span class="pname">case</span><span class="preq"></span><input class="pinput" placeholder="upper" data-param="case" oninput="updateUrl(this)"/><span class="pdesc">upper, lower, title, camel, snake, kebab, reverse</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="hello world from foxy tech" value="hello world from foxy tech" data-param="text" oninput="rebuildFromInput(this)"/><span class="pdesc">Input text</span></div><div class="pr"><span class="pname">case</span><span class="preq"></span><input class="pinput" placeholder="upper" value="title" data-param="case" oninput="rebuildFromInput(this)"/><span class="pdesc">upper, lower, title, camel, snake, kebab, reverse</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/textcase</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -987,7 +987,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Count words, characters, sentences and paragraphs in any text. Also returns estimated reading time in seconds.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: stats object</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="The quick brown fox jumps over the lazy dog" data-param="text" oninput="updateUrl(this)"/><span class="pdesc">Text to analyze</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="The quick brown fox jumps over the lazy dog" value="The quick brown fox jumps over the lazy dog" data-param="text" oninput="rebuildFromInput(this)"/><span class="pdesc">Text to analyze</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/wordcount</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -1008,7 +1008,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Convert text to Morse code or decode Morse back to text. Use spaces between codes and / between words when decoding.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: morse or text</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="SOS" data-param="text" oninput="updateUrl(this)"/><span class="pdesc">Text to encode or morse to decode</span></div><div class="pr"><span class="pname">action</span><span class="preq"></span><input class="pinput" placeholder="encode" data-param="action" oninput="updateUrl(this)"/><span class="pdesc">encode or decode</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="SOS" value="SOS" data-param="text" oninput="rebuildFromInput(this)"/><span class="pdesc">Text to encode or morse to decode</span></div><div class="pr"><span class="pname">action</span><span class="preq"></span><input class="pinput" placeholder="encode" value="encode" data-param="action" oninput="rebuildFromInput(this)"/><span class="pdesc">encode or decode</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/morse</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -1029,7 +1029,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Convert integers to Roman numerals (1-3999) or Roman numerals back to integers. Set action=from_roman to reverse.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: converted value</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">number</span><span class="preq">*</span><input class="pinput" placeholder="42" data-param="number" oninput="updateUrl(this)"/><span class="pdesc">Integer or Roman numeral</span></div><div class="pr"><span class="pname">action</span><span class="preq"></span><input class="pinput" placeholder="to_roman" data-param="action" oninput="updateUrl(this)"/><span class="pdesc">to_roman or from_roman</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">number</span><span class="preq">*</span><input class="pinput" placeholder="42" value="2025" data-param="number" oninput="rebuildFromInput(this)"/><span class="pdesc">Integer or Roman numeral</span></div><div class="pr"><span class="pname">action</span><span class="preq"></span><input class="pinput" placeholder="to_roman" value="to_roman" data-param="action" oninput="rebuildFromInput(this)"/><span class="pdesc">to_roman or from_roman</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/roman</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -1050,7 +1050,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Check whether a word or phrase is a palindrome. Ignores spaces, punctuation and case. Fully self-built.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: boolean + cleaned text</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="racecar" data-param="text" oninput="updateUrl(this)"/><span class="pdesc">Word or phrase to check</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="racecar" value="A man a plan a canal Panama" data-param="text" oninput="rebuildFromInput(this)"/><span class="pdesc">Word or phrase to check</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/palindrome</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -1071,7 +1071,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Convert any text into a clean URL-friendly slug — lowercase, hyphenated, no special characters. Handles accented chars.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: slug string</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="Hello World! This is a Test" data-param="text" oninput="updateUrl(this)"/><span class="pdesc">Text to slugify</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">text</span><span class="preq">*</span><input class="pinput" placeholder="Hello World! This is a Test" value="Foxy Tech API is Awesome!" data-param="text" oninput="rebuildFromInput(this)"/><span class="pdesc">Text to slugify</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/slug</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -1092,7 +1092,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Generate lorem ipsum placeholder text. Specify how many words (up to 500). Perfect for UI mockups and design templates.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: lorem text</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">words</span><span class="preq"></span><input class="pinput" placeholder="50" data-param="words" oninput="updateUrl(this)"/><span class="pdesc">Number of words (1-500)</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">words</span><span class="preq"></span><input class="pinput" placeholder="50" value="50" data-param="words" oninput="rebuildFromInput(this)"/><span class="pdesc">Number of words (1-500)</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/lorem</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -1113,7 +1113,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Convert text or numbers to binary, or decode binary back to text or decimal. Fully self-built with no external API.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: binary or decoded value</span><span class="meta-chip">Self-built</span><span class="meta-chip">No rate limit</span></div>
         </div>
-        <div class="pt">Parameters</div><div class="pr"><span class="pname">input</span><span class="preq">*</span><input class="pinput" placeholder="Hello" data-param="input" oninput="updateUrl(this)"/><span class="pdesc">Text/number or binary string</span></div><div class="pr"><span class="pname">action</span><span class="preq"></span><input class="pinput" placeholder="to_binary" data-param="action" oninput="updateUrl(this)"/><span class="pdesc">to_binary or from_binary</span></div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">input</span><span class="preq">*</span><input class="pinput" placeholder="Hello" value="Hello" data-param="input" oninput="rebuildFromInput(this)"/><span class="pdesc">Text/number or binary string</span></div><div class="pr"><span class="pname">action</span><span class="preq"></span><input class="pinput" placeholder="to_binary" value="to_binary" data-param="action" oninput="rebuildFromInput(this)"/><span class="pdesc">to_binary or from_binary</span></div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/utils/binary</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -1134,7 +1134,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
           <p>Check if the API server is online. Returns status 'ok', uptime in seconds and current server timestamp. No parameters.</p>
           <div class="ep-desc-meta"><span class="meta-chip">Returns: status + uptime</span><span class="meta-chip">No parameters</span></div>
         </div>
-        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required.</div>
+        <div class="pt">Parameters</div><div style="color:var(--text3);font-size:12px;margin-bottom:12px">No parameters required — hit Send Request to try it.</div>
         <div class="url-row">
           <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/health</span></div>
           <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
@@ -1151,17 +1151,25 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 function getBase(){ return window.location.origin; }
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function toggle(hdr){ hdr.parentElement.classList.toggle('open'); }
-function updateUrl(input){ rebuildUrl(input.closest('.ep-body').querySelector('.url-full')); }
+function rebuildFromInput(input){ rebuildUrl(input.closest('.ep-body').querySelector('.url-full')); }
 function rebuildUrl(urlEl){
   if(!urlEl) return;
   const body = urlEl.closest('.ep-body');
-  let rawPath = body.querySelector('.ep-head .ep-path').childNodes[0].textContent.trim();
+  let rawPath = '';
+  const epPath = body.querySelector('.ep-head .ep-path');
+  if(epPath) rawPath = epPath.childNodes[0].textContent.trim();
   const inputs = body.querySelectorAll('.pinput');
   const parts = [];
   inputs.forEach(inp => { const v=inp.value.trim(); if(v) parts.push(inp.dataset.param+'='+encodeURIComponent(v)); });
   const qs = parts.length ? '?'+parts.join('&') : '';
   urlEl.innerHTML = esc(rawPath)+(qs?'<span style="color:var(--orange)">'+esc(qs)+'</span>':'');
   urlEl._path = rawPath; urlEl._qs = qs;
+}
+function initUrls(){
+  document.querySelectorAll('.ep-body').forEach(body => {
+    const urlEl = body.querySelector('.url-full');
+    if(urlEl && body.querySelectorAll('.pinput[value]').length) rebuildUrl(urlEl);
+  });
 }
 function copyUrl(btn){
   const urlEl = btn.closest('.url-row').querySelector('.url-full');
@@ -1215,6 +1223,7 @@ function closeSidebar(){ document.getElementById('sidebar').classList.remove('op
 const navEls = document.querySelectorAll('.nav-item[href^="#"]');
 const obs = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){ navEls.forEach(n=>n.classList.remove('active')); var m=document.querySelector('.nav-item[href="#'+e.target.id+'"]'); if(m) m.classList.add('active'); } }); },{threshold:0.2});
 document.querySelectorAll('[id^="ep-"],[id="overview"]').forEach(el=>obs.observe(el));
+window.addEventListener('DOMContentLoaded', initUrls);
 </script>
 </body>
 </html>
