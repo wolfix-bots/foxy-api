@@ -83,7 +83,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   .hamburger{display:flex;align-items:center;justify-content:center;position:fixed;bottom:20px;right:20px;z-index:200;width:46px;height:46px;background:var(--accent);color:#000;border:none;border-radius:50%;font-size:19px;cursor:pointer;box-shadow:0 4px 20px rgba(0,212,255,.45)}
   .ep-tagline{display:none}.hero-stats{gap:18px}.pr{gap:6px}.pdesc{min-width:100%}
 }
-</style>
+.ep-section-header{font-size:13px;font-weight:700;color:var(--accent);letter-spacing:.5px;padding:18px 0 8px;border-top:1px solid var(--border);margin-top:18px;text-transform:uppercase}</style>
 </head>
 <body>
 <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
@@ -96,7 +96,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   <div class="sidebar-nav">
     <div class="nav-cat">&#128214; Overview</div>
     <a class="nav-item active" href="#overview" onclick="closeSidebar()"><span class="mbadge" style="background:rgba(0,212,255,.1);color:var(--accent)">&#9679;</span>Getting Started</a>
-    <div class="nav-cat">🤖 Artificial Intelligence</div><a class="nav-item" href="#ep-ai-chat" onclick="closeSidebar()"><span class="mbadge">GET</span>chat</a><a class="nav-item" href="#ep-ai-ds" onclick="closeSidebar()"><span class="mbadge">GET</span>deepseek</a><a class="nav-item" href="#ep-ai-gem" onclick="closeSidebar()"><span class="mbadge">GET</span>gemini</a><a class="nav-item" href="#ep-ai-mist" onclick="closeSidebar()"><span class="mbadge">GET</span>mistral</a><div class="nav-cat">🔍 Search</div><a class="nav-item" href="#ep-srch-goog" onclick="closeSidebar()"><span class="mbadge">GET</span>google</a><a class="nav-item" href="#ep-srch-yt" onclick="closeSidebar()"><span class="mbadge">GET</span>youtube</a><a class="nav-item" href="#ep-srch-lyr" onclick="closeSidebar()"><span class="mbadge">GET</span>lyrics</a><a class="nav-item" href="#ep-srch-wall" onclick="closeSidebar()"><span class="mbadge">GET</span>wallpaper</a><a class="nav-item" href="#ep-srch-news" onclick="closeSidebar()"><span class="mbadge">GET</span>news</a><div class="nav-cat">🛠️ Tools</div><a class="nav-item" href="#ep-tl-wea" onclick="closeSidebar()"><span class="mbadge">GET</span>weather</a><a class="nav-item" href="#ep-tl-qr" onclick="closeSidebar()"><span class="mbadge">GET</span>qrcode</a><a class="nav-item" href="#ep-tl-shot" onclick="closeSidebar()"><span class="mbadge">GET</span>screenshot</a><a class="nav-item" href="#ep-tl-age" onclick="closeSidebar()"><span class="mbadge">GET</span>age</a><a class="nav-item" href="#ep-tl-cdown" onclick="closeSidebar()"><span class="mbadge">GET</span>countdown</a><div class="nav-cat">🕵️ Stalk</div><a class="nav-item" href="#ep-st-gh" onclick="closeSidebar()"><span class="mbadge">GET</span>github</a><a class="nav-item" href="#ep-st-tk" onclick="closeSidebar()"><span class="mbadge">GET</span>tiktok</a><div class="nav-cat">⬇️ Downloader</div><a class="nav-item" href="#ep-dl-mp3" onclick="closeSidebar()"><span class="mbadge">GET</span>ytmp3</a><a class="nav-item" href="#ep-dl-mp4" onclick="closeSidebar()"><span class="mbadge">GET</span>ytmp4</a><a class="nav-item" href="#ep-dl-tt" onclick="closeSidebar()"><span class="mbadge">GET</span>tiktok</a><a class="nav-item" href="#ep-dl-sp" onclick="closeSidebar()"><span class="mbadge">GET</span>spotify</a><a class="nav-item" href="#ep-dl-fb" onclick="closeSidebar()"><span class="mbadge">GET</span>facebook</a><div class="nav-cat">🎲 Fun & Random</div><a class="nav-item" href="#ep-fun-joke" onclick="closeSidebar()"><span class="mbadge">GET</span>joke</a><a class="nav-item" href="#ep-fun-dad" onclick="closeSidebar()"><span class="mbadge">GET</span>dadjoke</a><a class="nav-item" href="#ep-fun-fact" onclick="closeSidebar()"><span class="mbadge">GET</span>fact</a><a class="nav-item" href="#ep-fun-adv" onclick="closeSidebar()"><span class="mbadge">GET</span>advice</a><a class="nav-item" href="#ep-fun-aff" onclick="closeSidebar()"><span class="mbadge">GET</span>affirmation</a><a class="nav-item" href="#ep-fun-ins" onclick="closeSidebar()"><span class="mbadge">GET</span>insult</a><a class="nav-item" href="#ep-fun-cnk" onclick="closeSidebar()"><span class="mbadge">GET</span>chuck</a><a class="nav-item" href="#ep-fun-dog" onclick="closeSidebar()"><span class="mbadge">GET</span>dog</a><a class="nav-item" href="#ep-fun-cat" onclick="closeSidebar()"><span class="mbadge">GET</span>cat</a><a class="nav-item" href="#ep-fun-bored" onclick="closeSidebar()"><span class="mbadge">GET</span>bored</a><div class="nav-cat">ℹ️ Info</div><a class="nav-item" href="#ep-info-dict" onclick="closeSidebar()"><span class="mbadge">GET</span>dictionary</a><a class="nav-item" href="#ep-info-ctry" onclick="closeSidebar()"><span class="mbadge">GET</span>country</a><a class="nav-item" href="#ep-info-curr" onclick="closeSidebar()"><span class="mbadge">GET</span>currency</a><a class="nav-item" href="#ep-info-col" onclick="closeSidebar()"><span class="mbadge">GET</span>color</a><a class="nav-item" href="#ep-info-time" onclick="closeSidebar()"><span class="mbadge">GET</span>time</a><div class="nav-cat">⚙️ Utils</div><a class="nav-item" href="#ep-ut-pass" onclick="closeSidebar()"><span class="mbadge">GET</span>password</a><a class="nav-item" href="#ep-ut-uuid" onclick="closeSidebar()"><span class="mbadge">GET</span>uuid</a><a class="nav-item" href="#ep-ut-hash" onclick="closeSidebar()"><span class="mbadge">GET</span>hash</a><a class="nav-item" href="#ep-ut-b64" onclick="closeSidebar()"><span class="mbadge">GET</span>base64</a><a class="nav-item" href="#ep-ut-case" onclick="closeSidebar()"><span class="mbadge">GET</span>textcase</a><a class="nav-item" href="#ep-ut-wc" onclick="closeSidebar()"><span class="mbadge">GET</span>wordcount</a><a class="nav-item" href="#ep-ut-morse" onclick="closeSidebar()"><span class="mbadge">GET</span>morse</a><a class="nav-item" href="#ep-ut-roman" onclick="closeSidebar()"><span class="mbadge">GET</span>roman</a><a class="nav-item" href="#ep-ut-palin" onclick="closeSidebar()"><span class="mbadge">GET</span>palindrome</a><a class="nav-item" href="#ep-ut-slug" onclick="closeSidebar()"><span class="mbadge">GET</span>slug</a><a class="nav-item" href="#ep-ut-lorem" onclick="closeSidebar()"><span class="mbadge">GET</span>lorem</a><a class="nav-item" href="#ep-ut-bin" onclick="closeSidebar()"><span class="mbadge">GET</span>binary</a><div class="nav-cat">📡 System</div><a class="nav-item" href="#ep-health" onclick="closeSidebar()"><span class="mbadge">GET</span>health</a>
+    <div class="nav-cat">🤖 Artificial Intelligence</div><a class="nav-item" href="#ep-ai-chat" onclick="closeSidebar()"><span class="mbadge">GET</span>chat</a><a class="nav-item" href="#ep-ai-ds" onclick="closeSidebar()"><span class="mbadge">GET</span>deepseek</a><a class="nav-item" href="#ep-ai-gem" onclick="closeSidebar()"><span class="mbadge">GET</span>gemini</a><a class="nav-item" href="#ep-ai-mist" onclick="closeSidebar()"><span class="mbadge">GET</span>mistral</a><div class="nav-cat">🔍 Search</div><a class="nav-item" href="#ep-srch-goog" onclick="closeSidebar()"><span class="mbadge">GET</span>google</a><a class="nav-item" href="#ep-srch-yt" onclick="closeSidebar()"><span class="mbadge">GET</span>youtube</a><a class="nav-item" href="#ep-srch-lyr" onclick="closeSidebar()"><span class="mbadge">GET</span>lyrics</a><a class="nav-item" href="#ep-srch-wall" onclick="closeSidebar()"><span class="mbadge">GET</span>wallpaper</a><a class="nav-item" href="#ep-srch-news" onclick="closeSidebar()"><span class="mbadge">GET</span>news</a><div class="nav-cat">🛠️ Tools</div><a class="nav-item" href="#ep-tl-wea" onclick="closeSidebar()"><span class="mbadge">GET</span>weather</a><a class="nav-item" href="#ep-tl-qr" onclick="closeSidebar()"><span class="mbadge">GET</span>qrcode</a><a class="nav-item" href="#ep-tl-shot" onclick="closeSidebar()"><span class="mbadge">GET</span>screenshot</a><a class="nav-item" href="#ep-tl-age" onclick="closeSidebar()"><span class="mbadge">GET</span>age</a><a class="nav-item" href="#ep-tl-cdown" onclick="closeSidebar()"><span class="mbadge">GET</span>countdown</a><div class="nav-cat">🕵️ Stalk</div><a class="nav-item" href="#ep-st-gh" onclick="closeSidebar()"><span class="mbadge">GET</span>github</a><a class="nav-item" href="#ep-st-tk" onclick="closeSidebar()"><span class="mbadge">GET</span>tiktok</a><div class="nav-cat">⬇️ Downloader</div><a class="nav-item" href="#ep-dl-mp3" onclick="closeSidebar()"><span class="mbadge">GET</span>ytmp3</a><a class="nav-item" href="#ep-dl-mp4" onclick="closeSidebar()"><span class="mbadge">GET</span>ytmp4</a><a class="nav-item" href="#ep-dl-tt" onclick="closeSidebar()"><span class="mbadge">GET</span>tiktok</a><a class="nav-item" href="#ep-dl-sp" onclick="closeSidebar()"><span class="mbadge">GET</span>spotify</a><a class="nav-item" href="#ep-dl-fb" onclick="closeSidebar()"><span class="mbadge">GET</span>facebook</a><div class="nav-cat">🎲 Fun & Random</div><a class="nav-item" href="#ep-fun-joke" onclick="closeSidebar()"><span class="mbadge">GET</span>joke</a><a class="nav-item" href="#ep-fun-dad" onclick="closeSidebar()"><span class="mbadge">GET</span>dadjoke</a><a class="nav-item" href="#ep-fun-fact" onclick="closeSidebar()"><span class="mbadge">GET</span>fact</a><a class="nav-item" href="#ep-fun-adv" onclick="closeSidebar()"><span class="mbadge">GET</span>advice</a><a class="nav-item" href="#ep-fun-aff" onclick="closeSidebar()"><span class="mbadge">GET</span>affirmation</a><a class="nav-item" href="#ep-fun-ins" onclick="closeSidebar()"><span class="mbadge">GET</span>insult</a><a class="nav-item" href="#ep-fun-cnk" onclick="closeSidebar()"><span class="mbadge">GET</span>chuck</a><a class="nav-item" href="#ep-fun-dog" onclick="closeSidebar()"><span class="mbadge">GET</span>dog</a><a class="nav-item" href="#ep-fun-cat" onclick="closeSidebar()"><span class="mbadge">GET</span>cat</a><a class="nav-item" href="#ep-fun-bored" onclick="closeSidebar()"><span class="mbadge">GET</span>bored</a><div class="nav-cat">ℹ️ Info</div><a class="nav-item" href="#ep-info-dict" onclick="closeSidebar()"><span class="mbadge">GET</span>dictionary</a><a class="nav-item" href="#ep-info-ctry" onclick="closeSidebar()"><span class="mbadge">GET</span>country</a><a class="nav-item" href="#ep-info-curr" onclick="closeSidebar()"><span class="mbadge">GET</span>currency</a><a class="nav-item" href="#ep-info-col" onclick="closeSidebar()"><span class="mbadge">GET</span>color</a><a class="nav-item" href="#ep-info-time" onclick="closeSidebar()"><span class="mbadge">GET</span>time</a><div class="nav-cat">⚙️ Utils</div><a class="nav-item" href="#ep-ut-pass" onclick="closeSidebar()"><span class="mbadge">GET</span>password</a><a class="nav-item" href="#ep-ut-uuid" onclick="closeSidebar()"><span class="mbadge">GET</span>uuid</a><a class="nav-item" href="#ep-ut-hash" onclick="closeSidebar()"><span class="mbadge">GET</span>hash</a><a class="nav-item" href="#ep-ut-b64" onclick="closeSidebar()"><span class="mbadge">GET</span>base64</a><a class="nav-item" href="#ep-ut-case" onclick="closeSidebar()"><span class="mbadge">GET</span>textcase</a><a class="nav-item" href="#ep-ut-wc" onclick="closeSidebar()"><span class="mbadge">GET</span>wordcount</a><a class="nav-item" href="#ep-ut-morse" onclick="closeSidebar()"><span class="mbadge">GET</span>morse</a><a class="nav-item" href="#ep-ut-roman" onclick="closeSidebar()"><span class="mbadge">GET</span>roman</a><a class="nav-item" href="#ep-ut-palin" onclick="closeSidebar()"><span class="mbadge">GET</span>palindrome</a><a class="nav-item" href="#ep-ut-slug" onclick="closeSidebar()"><span class="mbadge">GET</span>slug</a><a class="nav-item" href="#ep-ut-lorem" onclick="closeSidebar()"><span class="mbadge">GET</span>lorem</a><a class="nav-item" href="#ep-ut-bin" onclick="closeSidebar()"><span class="mbadge">GET</span>binary</a><div class="nav-cat">🎬 Movies</div><a class="nav-item" href="#ep-mv-search" onclick="closeSidebar()"><span class="mbadge">GET</span>search</a><a class="nav-item" href="#ep-mv-trending" onclick="closeSidebar()"><span class="mbadge">GET</span>trending</a><a class="nav-item" href="#ep-mv-hot" onclick="closeSidebar()"><span class="mbadge">GET</span>hot</a><a class="nav-item" href="#ep-mv-ranking" onclick="closeSidebar()"><span class="mbadge">GET</span>ranking</a><a class="nav-item" href="#ep-mv-popular" onclick="closeSidebar()"><span class="mbadge">GET</span>popular searches</a><a class="nav-item" href="#ep-mv-homepage" onclick="closeSidebar()"><span class="mbadge">GET</span>homepage</a><a class="nav-item" href="#ep-mv-suggest" onclick="closeSidebar()"><span class="mbadge">GET</span>suggest</a><a class="nav-item" href="#ep-mv-browse" onclick="closeSidebar()"><span class="mbadge">GET</span>browse</a><a class="nav-item" href="#ep-mv-detail" onclick="closeSidebar()"><span class="mbadge">GET</span>detail</a><a class="nav-item" href="#ep-mv-rich" onclick="closeSidebar()"><span class="mbadge">GET</span>rich-detail</a><a class="nav-item" href="#ep-mv-recommend" onclick="closeSidebar()"><span class="mbadge">GET</span>recommend</a><a class="nav-item" href="#ep-mv-play" onclick="closeSidebar()"><span class="mbadge">GET</span>play</a><a class="nav-item" href="#ep-mv-stream" onclick="closeSidebar()"><span class="mbadge">GET</span>stream</a><a class="nav-item" href="#ep-mv-captions" onclick="closeSidebar()"><span class="mbadge">GET</span>captions</a><div class="nav-cat">🎥 ShowBox</div><a class="nav-item" href="#ep-sb-search" onclick="closeSidebar()"><span class="mbadge">GET</span>search</a><a class="nav-item" href="#ep-sb-movie" onclick="closeSidebar()"><span class="mbadge">GET</span>movie</a><a class="nav-item" href="#ep-sb-tv" onclick="closeSidebar()"><span class="mbadge">GET</span>tv</a><a class="nav-item" href="#ep-sb-streams" onclick="closeSidebar()"><span class="mbadge">GET</span>streams</a><div class="nav-cat">🆕 NewToxic</div><a class="nav-item" href="#ep-nt-search" onclick="closeSidebar()"><span class="mbadge">GET</span>search</a><a class="nav-item" href="#ep-nt-latest" onclick="closeSidebar()"><span class="mbadge">GET</span>latest</a><a class="nav-item" href="#ep-nt-featured" onclick="closeSidebar()"><span class="mbadge">GET</span>featured</a><a class="nav-item" href="#ep-nt-detail" onclick="closeSidebar()"><span class="mbadge">GET</span>detail</a><a class="nav-item" href="#ep-nt-resolve" onclick="closeSidebar()"><span class="mbadge">GET</span>resolve</a><div class="nav-cat">👤 Staff</div><a class="nav-item" href="#ep-st2-detail" onclick="closeSidebar()"><span class="mbadge">GET</span>detail</a><a class="nav-item" href="#ep-st2-works" onclick="closeSidebar()"><span class="mbadge">GET</span>works</a><div class="nav-cat">📡 System</div><a class="nav-item" href="#ep-health" onclick="closeSidebar()"><span class="mbadge">GET</span>health</a>
   </div>
   <div class="sidebar-foot">Built by <a href="https://github.com/wolfix-bots" target="_blank">Foxy Tech</a></div>
 </nav>
@@ -1122,6 +1122,568 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
         <div class="res-area"></div>
       </div></div>
     </div></div><div class="ep-group"><div class="sec-title" style="--cat-color:var(--text3)">📡 System</div>
+
+    <!-- ═══ MOVIES ═══ -->
+    <div class="ep-section-header">🎬 Movies — powered by xcasper movie API</div>
+
+    <div class="ep-card" id="ep-mv-search">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/search<span class="param">?q=</span></span>
+        <span class="ep-tagline">Search movies & TV series</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Search for movies or TV shows by title. Returns paginated results with cover images, ratings, genres, and subtitles.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: movie list</span><span class="meta-chip">Source: xcasper movie API</span><span class="meta-chip">No auth required</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Avatar" value="Avatar" data-param="q" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Movie or series title</span></div><div class="pr"><span class="pname">type</span><span class="preq"></span><input class="pinput" placeholder="1" value="1" data-param="type" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">1=movie, 2=TV series (optional)</span></div><div class="pr"><span class="pname">page</span><span class="preq"></span><input class="pinput" placeholder="1" value="1" data-param="page" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Page number</span></div><div class="pr"><span class="pname">perPage</span><span class="preq"></span><input class="pinput" placeholder="12" value="12" data-param="perPage" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Results per page</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/search</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/search',{'q':'q','type':'type','page':'page','perPage':'perPage'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-trending">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/trending</span>
+        <span class="ep-tagline">Trending movies right now</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Get currently trending movies worldwide with cover images, ratings, genres and IMDB scores.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: trending list</span><span class="meta-chip">Updates: hourly</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">page</span><span class="preq"></span><input class="pinput" placeholder="0" value="0" data-param="page" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Page (starts at 0)</span></div><div class="pr"><span class="pname">perPage</span><span class="preq"></span><input class="pinput" placeholder="18" value="18" data-param="perPage" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Results per page</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/trending</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/trending',{'page':'page','perPage':'perPage'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-hot">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/hot</span>
+        <span class="ep-tagline">Hot movies today</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Returns currently hot/viral movies on the platform.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: movie list</span></div>
+        </div>
+        
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/hot</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/hot',{})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-ranking">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/ranking</span>
+        <span class="ep-tagline">Movie rankings</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Top-ranked movies by popularity and rating.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: ranked list</span></div>
+        </div>
+        
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/ranking</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/ranking',{})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-popular">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/popular-search</span>
+        <span class="ep-tagline">Popular search keywords</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Returns what people are searching for most right now — useful for autocomplete or trending widgets.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: keyword list</span></div>
+        </div>
+        
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/popular-search</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/popular-search',{})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-homepage">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/homepage</span>
+        <span class="ep-tagline">Homepage featured content</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Returns the curated homepage content: featured banners, new releases and recommended rows.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: homepage data</span></div>
+        </div>
+        
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/homepage</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/homepage',{})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-suggest">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/suggest<span class="param">?q=</span></span>
+        <span class="ep-tagline">Autocomplete search suggestions</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Get real-time search suggestions as the user types — ideal for autocomplete inputs.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: suggestions list</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Ava" value="Ava" data-param="q" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Partial search keyword</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/suggest</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/suggest',{'q':'q'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-browse">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/browse<span class="param">?type=</span></span>
+        <span class="ep-tagline">Browse by genre & country</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Browse movies or TV series filtered by genre and/or country with pagination.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: movie list</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">type</span><span class="preq"></span><input class="pinput" placeholder="1" value="1" data-param="type" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">1=movies, 2=TV series</span></div><div class="pr"><span class="pname">genre</span><span class="preq"></span><input class="pinput" placeholder="Drama" value="Drama" data-param="genre" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">e.g. Action, Drama, Comedy</span></div><div class="pr"><span class="pname">country</span><span class="preq"></span><input class="pinput" placeholder="" value="" data-param="country" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">e.g. United States, South Korea</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/browse</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/browse',{'type':'type','genre':'genre','country':'country'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-detail">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/detail<span class="param">?id=</span></span>
+        <span class="ep-tagline">Movie / series detail</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Full details for a movie or TV series: plot, cast, genres, poster, release date, IMDB score.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: detail object</span><span class="meta-chip">Param: subjectId</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="5154075108704669480" value="5154075108704669480" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">subjectId from search results</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/detail</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/detail',{'id':'id'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-rich">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/rich-detail<span class="param">?id=</span></span>
+        <span class="ep-tagline">Rich detail (cast, stills, etc.)</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Extended detail including cast list, still images, trailer URL, recommendations preview.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: rich detail object</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="5154075108704669480" value="5154075108704669480" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">subjectId from search results</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/rich-detail</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/rich-detail',{'id':'id'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-recommend">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/recommend<span class="param">?id=</span></span>
+        <span class="ep-tagline">Related movie recommendations</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Returns similar movies to a given title — great for "You might also like" sections.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: recommendation list</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="5154075108704669480" value="5154075108704669480" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">subjectId from detail</span></div><div class="pr"><span class="pname">page</span><span class="preq"></span><input class="pinput" placeholder="1" value="1" data-param="page" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Page number</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/recommend</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/recommend',{'id':'id','page':'page'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-play">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/play<span class="param">?id=</span></span>
+        <span class="ep-tagline">Playback info & stream sources</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Returns available stream sources and qualities for a movie or series episode.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: stream sources</span><span class="meta-chip">Direct .mp4 links available</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="5154075108704669480" value="5154075108704669480" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">subjectId from search/detail</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/play</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/play',{'id':'id'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-stream">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/stream<span class="param">?id=</span></span>
+        <span class="ep-tagline">Stream URL (bff)</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>BFF stream endpoint — returns direct streamable URL with quality options.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: stream URL</span><span class="meta-chip">Multiple qualities</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="5154075108704669480" value="5154075108704669480" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">subjectId</span></div><div class="pr"><span class="pname">streamId</span><span class="preq"></span><input class="pinput" placeholder="" value="" data-param="streamId" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Optional specific streamId</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/stream</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/stream',{'id':'id','streamId':'streamId'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-mv-captions">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/captions<span class="param">?id=&streamId=</span></span>
+        <span class="ep-tagline">Subtitles / captions</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Returns subtitle/caption files for a specific stream in multiple languages.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: subtitle URLs</span><span class="meta-chip">Multiple languages</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="5154075108704669480" value="5154075108704669480" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">subjectId</span></div><div class="pr"><span class="pname">streamId</span><span class="preq">*</span><input class="pinput" placeholder="8795089154133688768" value="8795089154133688768" data-param="streamId" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">streamId from play/stream endpoint</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/captions</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/captions',{'id':'id','streamId':'streamId'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <!-- ═══ SHOWBOX ═══ -->
+    <div class="ep-section-header">🎥 ShowBox — movies & series streaming</div>
+
+    <div class="ep-card" id="ep-sb-search">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/showbox/search<span class="param">?q=</span></span>
+        <span class="ep-tagline">ShowBox search</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Search ShowBox database for movies or TV series.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: ShowBox results</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Avatar" value="Avatar" data-param="q" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Movie or series title</span></div><div class="pr"><span class="pname">type</span><span class="preq"></span><input class="pinput" placeholder="movie" value="movie" data-param="type" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">movie or tv</span></div><div class="pr"><span class="pname">limit</span><span class="preq"></span><input class="pinput" placeholder="10" value="10" data-param="limit" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Number of results</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/showbox/search</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/showbox/search',{'q':'q','type':'type','limit':'limit'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-sb-movie">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/showbox/movie<span class="param">?id=</span></span>
+        <span class="ep-tagline">ShowBox movie details</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Get full details for a ShowBox movie by its ID.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: movie object</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="3737" value="3737" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">ShowBox movie ID</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/showbox/movie</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/showbox/movie',{'id':'id'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-sb-tv">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/showbox/tv<span class="param">?id=</span></span>
+        <span class="ep-tagline">ShowBox TV series</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Get TV series details from ShowBox including episodes.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: TV series object</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="77" value="77" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">ShowBox TV series ID</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/showbox/tv</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/showbox/tv',{'id':'id'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-sb-streams">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/showbox/streams<span class="param">?id=</span></span>
+        <span class="ep-tagline">ShowBox stream sources</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Get all available streaming URLs and quality options for a ShowBox movie or series.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: stream list</span><span class="meta-chip">Direct .mp4 links</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="3737" value="3737" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">ShowBox movie/show ID</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/showbox/streams</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/showbox/streams',{'id':'id'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <!-- ═══ NEWTOXIC ═══ -->
+    <div class="ep-section-header">🆕 NewToxic — alternative movie source</div>
+
+    <div class="ep-card" id="ep-nt-search">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/newtoxic/search<span class="param">?q=</span></span>
+        <span class="ep-tagline">NewToxic search</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Search NewToxic for movies and series.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: NewToxic results</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">q</span><span class="preq">*</span><input class="pinput" placeholder="Spider Man" value="Spider Man" data-param="q" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Movie or series title</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/newtoxic/search</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/newtoxic/search',{'q':'q'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-nt-latest">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/newtoxic/latest<span class="param">?page=</span></span>
+        <span class="ep-tagline">NewToxic latest releases</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Get the latest movies and series added to NewToxic.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: latest list</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">page</span><span class="preq"></span><input class="pinput" placeholder="1" value="1" data-param="page" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Page number</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/newtoxic/latest</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/newtoxic/latest',{'page':'page'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-nt-featured">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/newtoxic/featured</span>
+        <span class="ep-tagline">NewToxic featured</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Returns currently featured movies on NewToxic.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: featured list</span></div>
+        </div>
+        
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/newtoxic/featured</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/newtoxic/featured',{})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-nt-detail">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/newtoxic/detail<span class="param">?path=</span></span>
+        <span class="ep-tagline">NewToxic movie detail</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Get full details for a NewToxic movie using its path from search results.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: detail object</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">path</span><span class="preq">*</span><input class="pinput" placeholder="new/1/Downloads/movie/Paradise-2025.html" value="new/1/Downloads/movie/Paradise-2025.html" data-param="path" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">path from search results</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/newtoxic/detail</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/newtoxic/detail',{'path':'path'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-nt-resolve">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/newtoxic/resolve<span class="param">?fid=</span></span>
+        <span class="ep-tagline">Resolve NewToxic file</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Resolve a NewToxic file ID to a direct download/stream URL.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: resolved URL</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">fid</span><span class="preq">*</span><input class="pinput" placeholder="493505" value="493505" data-param="fid" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">fid from detail response</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/newtoxic/resolve</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/newtoxic/resolve',{'fid':'fid'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <!-- ═══ STAFF ═══ -->
+    <div class="ep-section-header">👤 Staff — actors, directors & crew</div>
+
+    <div class="ep-card" id="ep-st2-detail">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/staff<span class="param">?id=</span></span>
+        <span class="ep-tagline">Staff / actor profile</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Get profile details for an actor, director, or crew member.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: staff profile</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="2481188729860280112" value="2481188729860280112" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">staffId from movie detail/cast</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/staff</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/staff',{'id':'id'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
+
+    <div class="ep-card" id="ep-st2-works">
+      <div class="ep-head" onclick="toggle(this)">
+        <span class="method">GET</span>
+        <span class="ep-path">/api/movies/staff/works<span class="param">?id=</span></span>
+        <span class="ep-tagline">Staff filmography</span>
+        <span class="chev">&#9660;</span>
+      </div>
+      <div class="ep-body"><div class="ep-inner">
+        <div class="ep-desc-block">
+          <p>Get the full filmography / list of works for an actor or director.</p>
+          <div class="ep-desc-meta"><span class="meta-chip">Returns: work list</span></div>
+        </div>
+        <div class="pt">Parameters</div><div class="pr"><span class="pname">id</span><span class="preq">*</span><input class="pinput" placeholder="2481188729860280112" value="2481188729860280112" data-param="id" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">staffId from staff detail</span></div><div class="pr"><span class="pname">page</span><span class="preq"></span><input class="pinput" placeholder="1" value="1" data-param="page" oninput="rebuildUrl(this.closest('.ep-body').querySelector('.url-full'))"/><span class="pdesc">Page number</span></div>
+        <div class="url-row">
+          <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/movies/staff/works</span></div>
+          <button class="copy-btn" onclick="copyUrl(this)">&#128203; Copy URL</button>
+        </div>
+        <button class="try-btn" onclick="run(this,'/api/movies/staff/works',{'id':'id','page':'page'})">&#9654; Send Request</button>
+        <div class="res-area"></div>
+      </div></div>
+    </div>
     <div class="ep-card" id="ep-health">
       <div class="ep-head" onclick="toggle(this)">
         <span class="method">GET</span>
