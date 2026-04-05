@@ -39,12 +39,6 @@
     .hero h1 .accent{color:var(--accent)}.hero p{font-size:15px;color:var(--text2);max-width:540px;line-height:1.6;margin-bottom:26px}
     .hero-stats{display:flex;gap:28px}.stat .num{font-size:22px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace}.stat .label{font-size:11px;color:var(--text3);margin-top:2px}
 
-    /* Base URL bar */
-    .base-bar{background:var(--bg3);border-bottom:1px solid var(--border);padding:11px 44px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .base-label{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:1px;min-width:60px}
-    .base-input{flex:1;max-width:460px;background:var(--bg2);border:1px solid var(--border2);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;padding:6px 11px;border-radius:6px;outline:none;transition:border-color .2s}
-    .base-input:focus{border-color:var(--accent)}
-    .base-hint{font-size:11px;color:var(--text3)}
 
     /* Content */
     .content{padding:36px 44px;max-width:880px}
@@ -165,12 +159,6 @@
     </div>
   </section>
 
-  <!-- Base URL bar -->
-  <div class="base-bar">
-    <span class="base-label">Base URL</span>
-    <input class="base-input" id="baseUrl" type="text" value="https://foxy-api-febf.onrender.com" spellcheck="false"/>
-    <span class="base-hint">Your deployed API URL · edit to test locally</span>
-  </div>
 
   <!-- Content -->
   <div class="content">
@@ -589,16 +577,7 @@
 <button class="hamburger" onclick="toggleSidebar()">☰</button>
 
 <script>
-  // ── Base URL ──
-  const baseInput = document.getElementById('baseUrl');
-  baseInput.addEventListener('input', () => {
-    localStorage.setItem('foxyApiBase', baseInput.value.trim());
-    document.querySelectorAll('.url-full').forEach(el => el.dataset.path && rebuildForEl(el));
-  });
-  const saved = localStorage.getItem('foxyApiBase');
-  if (saved) baseInput.value = saved;
-
-  function getBase() { return baseInput.value.trim().replace(/\/$/, '') || window.location.origin; }
+  function getBase() { return window.location.origin; }
 
   // ── Toggle ──
   function toggle(hdr) { hdr.parentElement.classList.toggle('open'); }
