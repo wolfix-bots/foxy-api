@@ -2,903 +2,711 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Foxy Tech API</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #090b11;
-      --bg2: #0d1117;
-      --bg3: #161b22;
-      --bg4: #1c2230;
-      --border: #21262d;
-      --border2: #30363d;
-      --accent: #00d4ff;
-      --accent2: #7c3aed;
-      --green: #3fb950;
-      --yellow: #e3b341;
-      --red: #f85149;
-      --orange: #f0883e;
-      --text: #e6edf3;
-      --text2: #8b949e;
-      --text3: #6e7681;
-      --glow: 0 0 20px rgba(0,212,255,0.15);
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+    :root{--bg:#090b11;--bg2:#0d1117;--bg3:#161b22;--bg4:#1c2230;--border:#21262d;--border2:#30363d;--accent:#00d4ff;--accent2:#7c3aed;--green:#3fb950;--yellow:#e3b341;--red:#f85149;--orange:#f0883e;--purple:#a371f7;--text:#e6edf3;--text2:#8b949e;--text3:#6e7681;--glow:0 0 20px rgba(0,212,255,0.15)}
+    *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+    ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+    .layout{display:flex;min-height:100vh}
 
-    /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg2); }
-    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+    /* Sidebar */
+    .sidebar{width:255px;min-width:255px;background:var(--bg2);border-right:1px solid var(--border);position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;z-index:50}
+    .sidebar-logo{padding:22px 18px 18px;border-bottom:1px solid var(--border)}
+    .brand{font-size:17px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:8px}
+    .brand span{color:var(--text)}.version{font-size:11px;color:var(--text3);margin-top:4px;font-family:'JetBrains Mono',monospace}
+    .sidebar-nav{padding:10px 0;flex:1}
+    .nav-cat{padding:10px 18px 4px;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1.5px}
+    .nav-item{display:flex;align-items:center;gap:9px;padding:7px 18px;cursor:pointer;border-left:2px solid transparent;transition:all .15s;font-size:13px;color:var(--text2);text-decoration:none}
+    .nav-item:hover{background:var(--bg3);color:var(--text);border-left-color:var(--border2)}.nav-item.active{background:rgba(0,212,255,.06);color:var(--accent);border-left-color:var(--accent)}
+    .mbadge{font-size:9px;font-weight:700;font-family:'JetBrains Mono',monospace;padding:2px 5px;border-radius:3px;background:rgba(63,185,80,.15);color:var(--green);min-width:30px;text-align:center}
+    .sidebar-foot{padding:14px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--text3)}.sidebar-foot a{color:var(--accent);text-decoration:none}
 
-    /* ── Layout ── */
-    .layout { display: flex; min-height: 100vh; }
+    /* Main */
+    .main{flex:1;min-width:0}
 
-    /* ── Sidebar ── */
-    .sidebar {
-      width: 260px;
-      min-width: 260px;
-      background: var(--bg2);
-      border-right: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
-    .sidebar-logo {
-      padding: 24px 20px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-    .sidebar-logo .brand {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: -0.3px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .sidebar-logo .brand span { color: var(--text); }
-    .sidebar-logo .version {
-      font-size: 11px;
-      color: var(--text3);
-      margin-top: 4px;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .sidebar-nav { padding: 12px 0; flex: 1; }
-    .nav-category {
-      padding: 8px 20px 4px;
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 20px;
-      cursor: pointer;
-      border-left: 2px solid transparent;
-      transition: all 0.15s;
-      font-size: 13px;
-      color: var(--text2);
-      text-decoration: none;
-    }
-    .nav-item:hover { background: var(--bg3); color: var(--text); border-left-color: var(--border2); }
-    .nav-item.active { background: rgba(0,212,255,0.06); color: var(--accent); border-left-color: var(--accent); }
-    .nav-item .method-badge {
-      font-size: 9px;
-      font-weight: 700;
-      font-family: 'JetBrains Mono', monospace;
-      padding: 2px 5px;
-      border-radius: 3px;
-      background: rgba(63,185,80,0.15);
-      color: var(--green);
-      min-width: 30px;
-      text-align: center;
-    }
-    .sidebar-footer {
-      padding: 16px 20px;
-      border-top: 1px solid var(--border);
-      font-size: 11px;
-      color: var(--text3);
-    }
-    .sidebar-footer a { color: var(--accent); text-decoration: none; }
+    /* Hero */
+    .hero{background:linear-gradient(135deg,#090b11 0%,#0d1117 50%,#111827 100%);border-bottom:1px solid var(--border);padding:56px 44px 44px;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-100px;right:-80px;width:380px;height:380px;background:radial-gradient(circle,rgba(0,212,255,.07) 0%,transparent 70%);pointer-events:none}
+    .hero::after{content:'';position:absolute;bottom:-60px;left:180px;width:280px;height:280px;background:radial-gradient(circle,rgba(124,58,237,.05) 0%,transparent 70%);pointer-events:none}
+    .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);color:var(--accent);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:18px;letter-spacing:.5px}
+    .hero-badge::before{content:'●';font-size:8px;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .hero h1{font-size:40px;font-weight:700;line-height:1.15;letter-spacing:-1px;margin-bottom:12px}
+    .hero h1 .accent{color:var(--accent)}.hero p{font-size:15px;color:var(--text2);max-width:540px;line-height:1.6;margin-bottom:26px}
+    .hero-stats{display:flex;gap:28px}.stat .num{font-size:22px;font-weight:700;color:var(--accent);font-family:'JetBrains Mono',monospace}.stat .label{font-size:11px;color:var(--text3);margin-top:2px}
 
-    /* ── Main ── */
-    .main { flex: 1; min-width: 0; }
+    /* Base URL bar */
+    .base-bar{background:var(--bg3);border-bottom:1px solid var(--border);padding:11px 44px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .base-label{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:1px;min-width:60px}
+    .base-input{flex:1;max-width:460px;background:var(--bg2);border:1px solid var(--border2);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:12px;padding:6px 11px;border-radius:6px;outline:none;transition:border-color .2s}
+    .base-input:focus{border-color:var(--accent)}
+    .base-hint{font-size:11px;color:var(--text3)}
 
-    /* ── Hero ── */
-    .hero {
-      background: linear-gradient(135deg, #090b11 0%, #0d1117 50%, #111827 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 60px 48px 48px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -100px;
-      right: -100px;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -80px;
-      left: 200px;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(124,58,237,0.05) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(0,212,255,0.08);
-      border: 1px solid rgba(0,212,255,0.2);
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 20px;
-      letter-spacing: 0.5px;
-    }
-    .hero-badge::before { content: '●'; font-size: 8px; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    .hero h1 {
-      font-size: 42px;
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -1px;
-      margin-bottom: 14px;
-    }
-    .hero h1 .accent { color: var(--accent); }
-    .hero p {
-      font-size: 16px;
-      color: var(--text2);
-      max-width: 560px;
-      line-height: 1.6;
-      margin-bottom: 28px;
-    }
-    .hero-stats {
-      display: flex;
-      gap: 32px;
-    }
-    .stat { }
-    .stat .num {
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--accent);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .stat .label { font-size: 12px; color: var(--text3); margin-top: 2px; }
+    /* Content */
+    .content{padding:36px 44px;max-width:880px}
+    .sec-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);margin-bottom:14px;padding-bottom:7px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px}
+    .sec-title::before{content:'';display:inline-block;width:3px;height:11px;background:var(--accent);border-radius:2px}
+    .ep-group{margin-bottom:36px}
 
-    /* ── Base URL Banner ── */
-    .base-url-bar {
-      background: var(--bg3);
-      border-bottom: 1px solid var(--border);
-      padding: 12px 48px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .base-url-label { font-size: 11px; color: var(--text3); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; min-width: 70px; }
-    .base-url-input {
-      flex: 1;
-      max-width: 500px;
-      background: var(--bg2);
-      border: 1px solid var(--border2);
-      color: var(--accent);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      padding: 7px 12px;
-      border-radius: 6px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .base-url-input:focus { border-color: var(--accent); }
-    .base-url-hint { font-size: 11px; color: var(--text3); }
+    /* Endpoint card */
+    .ep-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+    .ep-card:hover{border-color:var(--border2)}.ep-card.open{border-color:var(--accent);box-shadow:var(--glow)}
+    .ep-head{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none}
+    .method{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;min-width:40px;text-align:center;background:rgba(63,185,80,.12);color:var(--green);border:1px solid rgba(63,185,80,.2)}
+    .ep-path{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);font-weight:500}
+    .ep-path .param{color:var(--orange)}.ep-desc{margin-left:auto;font-size:12px;color:var(--text2);white-space:nowrap}
+    .chev{margin-left:6px;color:var(--text3);transition:transform .2s;font-size:11px}.open .chev{transform:rotate(180deg)}
+    .ep-body{display:none;border-top:1px solid var(--border)}.open .ep-body{display:block}
+    .ep-inner{padding:18px}
 
-    /* ── Content ── */
-    .content { padding: 40px 48px; max-width: 900px; }
+    /* Params */
+    .pt{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:10px}
+    .pr{display:flex;align-items:flex-start;gap:9px;margin-bottom:9px;flex-wrap:wrap}
+    .pname{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--orange);min-width:80px;padding-top:8px}
+    .preq{font-size:10px;color:var(--red);min-width:12px;padding-top:10px}
+    .pinput{flex:1;min-width:180px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;padding:7px 11px;outline:none;transition:border-color .2s}
+    .pinput:focus{border-color:var(--accent);background:var(--bg4)}
+    .pdesc{font-size:11px;color:var(--text3);padding-top:10px;min-width:130px}
 
-    /* ── Section title ── */
-    .section-title {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--text3);
-      margin-bottom: 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .section-title::before {
-      content: '';
-      display: inline-block;
-      width: 3px;
-      height: 12px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
+    /* URL preview + copy */
+    .url-row{display:flex;align-items:center;gap:8px;margin-top:12px}
+    .url-preview{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);word-break:break-all}
+    .url-method{color:var(--green);font-weight:700;margin-right:6px}
+    .copy-btn{display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border2);color:var(--text2);font-size:11px;padding:7px 12px;border-radius:6px;cursor:pointer;transition:all .15s;white-space:nowrap;font-family:'Inter',sans-serif}
+    .copy-btn:hover{border-color:var(--accent);color:var(--accent)}.copy-btn.copied{border-color:var(--green);color:var(--green)}
 
-    /* ── Endpoint Card ── */
-    .endpoint-group { margin-bottom: 40px; }
-    .endpoint-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      margin-bottom: 12px;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-    .endpoint-card:hover { border-color: var(--border2); }
-    .endpoint-card.open { border-color: var(--accent); box-shadow: var(--glow); }
-    .endpoint-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 16px 20px;
-      cursor: pointer;
-      user-select: none;
-    }
-    .method {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 5px;
-      min-width: 44px;
-      text-align: center;
-      background: rgba(63,185,80,0.12);
-      color: var(--green);
-      border: 1px solid rgba(63,185,80,0.2);
-    }
-    .endpoint-path {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      color: var(--text);
-      font-weight: 500;
-    }
-    .endpoint-path .param { color: var(--orange); }
-    .endpoint-desc { margin-left: auto; font-size: 13px; color: var(--text2); }
-    .chevron {
-      margin-left: 8px;
-      color: var(--text3);
-      transition: transform 0.2s;
-      font-size: 12px;
-    }
-    .open .chevron { transform: rotate(180deg); }
+    /* Try button */
+    .try-btn{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#000;border:none;padding:8px 18px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;margin-top:14px;transition:all .15s;font-family:'Inter',sans-serif}
+    .try-btn:hover{background:#33ddff;transform:translateY(-1px)}.try-btn:active{transform:translateY(0)}.try-btn.loading{opacity:.7;cursor:wait}
+    .spinner{width:11px;height:11px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:spin .6s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* ── Endpoint Body ── */
-    .endpoint-body { display: none; border-top: 1px solid var(--border); }
-    .open .endpoint-body { display: block; }
-    .endpoint-inner { padding: 20px; }
+    /* Response */
+    .res-area{margin-top:18px;display:none}.res-area.visible{display:block}
+    .res-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+    .res-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text3)}
+    .chip{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px}
+    .chip.ok{background:rgba(63,185,80,.12);color:var(--green);border:1px solid rgba(63,185,80,.2)}
+    .chip.err{background:rgba(248,81,73,.12);color:var(--red);border:1px solid rgba(248,81,73,.2)}
+    .res-time{font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace}
+    .res-pre{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.65;max-height:360px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;color:var(--text2)}
+    .jk{color:#79c0ff}.js{color:#a5d6ff}.jn{color:#f8c555}.jb{color:#ff7b72}.jnull{color:var(--text3)}
 
-    .params-title {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text3);
-      margin-bottom: 12px;
-    }
-    .param-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .param-name {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--orange);
-      min-width: 80px;
-      padding-top: 8px;
-    }
-    .param-req {
-      font-size: 10px;
-      color: var(--red);
-      min-width: 14px;
-      padding-top: 10px;
-    }
-    .param-input {
-      flex: 1;
-      background: var(--bg3);
-      border: 1px solid var(--border2);
-      border-radius: 6px;
-      color: var(--text);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      padding: 7px 12px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .param-input:focus { border-color: var(--accent); background: var(--bg4); }
-    .param-desc { font-size: 11px; color: var(--text3); padding-top: 10px; min-width: 130px; }
+    /* Mobile */
+    .hamburger{display:none}
+    .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:49}
+    .overlay.visible{display:block}
 
-    /* ── Try button ── */
-    .try-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent);
-      color: #000;
-      border: none;
-      padding: 9px 20px;
-      border-radius: 7px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 16px;
-      transition: all 0.15s;
-      font-family: 'Inter', sans-serif;
-    }
-    .try-btn:hover { background: #33ddff; transform: translateY(-1px); }
-    .try-btn:active { transform: translateY(0); }
-    .try-btn.loading { opacity: 0.7; cursor: wait; }
-    .try-btn .spinner {
-      width: 12px;
-      height: 12px;
-      border: 2px solid rgba(0,0,0,0.3);
-      border-top-color: #000;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── Response ── */
-    .response-area { margin-top: 20px; display: none; }
-    .response-area.visible { display: block; }
-    .response-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .response-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); }
-    .status-chip {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 4px;
-    }
-    .status-chip.ok { background: rgba(63,185,80,0.12); color: var(--green); border: 1px solid rgba(63,185,80,0.2); }
-    .status-chip.err { background: rgba(248,81,73,0.12); color: var(--red); border: 1px solid rgba(248,81,73,0.2); }
-    .response-time { font-size: 11px; color: var(--text3); font-family: 'JetBrains Mono', monospace; }
-    .response-pre {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 16px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      line-height: 1.6;
-      max-height: 380px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      word-break: break-all;
-      color: var(--text2);
-    }
-    .response-pre .json-key   { color: #79c0ff; }
-    .response-pre .json-str  { color: #a5d6ff; }
-    .response-pre .json-num  { color: #f8c555; }
-    .response-pre .json-bool { color: #ff7b72; }
-    .response-pre .json-null { color: var(--text3); }
-
-    /* ── URL preview ── */
-    .url-preview {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 10px 14px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--text3);
-      margin-top: 14px;
-      word-break: break-all;
-    }
-    .url-preview .url-method { color: var(--green); font-weight: 700; margin-right: 8px; }
-    .url-preview .url-path { color: var(--text2); }
-    .url-preview .url-param { color: var(--orange); }
-
-    /* ── Mobile hamburger ── */
-    .hamburger { display: none; }
-
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .hero { padding: 40px 24px 32px; }
-      .hero h1 { font-size: 28px; }
-      .base-url-bar { padding: 12px 24px; flex-wrap: wrap; }
-      .content { padding: 24px; }
-      .sidebar {
-        position: fixed;
-        left: -260px;
-        z-index: 100;
-        transition: left 0.25s;
-        height: 100%;
-      }
-      .sidebar.open { left: 0; box-shadow: 4px 0 30px rgba(0,0,0,0.5); }
-      .hamburger {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 200;
-        width: 48px;
-        height: 48px;
-        background: var(--accent);
-        color: #000;
-        border: none;
-        border-radius: 50%;
-        font-size: 20px;
-        cursor: pointer;
-        box-shadow: 0 4px 20px rgba(0,212,255,0.4);
-      }
-      .overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.5);
-        z-index: 99;
-      }
-      .overlay.visible { display: block; }
-      .hero-stats { gap: 20px; }
-      .endpoint-header { flex-wrap: wrap; gap: 8px; }
-      .endpoint-desc { display: none; }
-      .param-row { flex-wrap: wrap; }
-      .param-desc { min-width: 100%; }
+    @media(max-width:860px){
+      .hero{padding:36px 20px 28px}.hero h1{font-size:26px}
+      .base-bar{padding:11px 20px}.content{padding:20px}
+      .sidebar{position:fixed;left:-255px;z-index:100;height:100%;transition:left .25s}
+      .sidebar.open{left:0;box-shadow:4px 0 30px rgba(0,0,0,.6)}
+      .hamburger{display:flex;align-items:center;justify-content:center;position:fixed;bottom:20px;right:20px;z-index:200;width:46px;height:46px;background:var(--accent);color:#000;border:none;border-radius:50%;font-size:19px;cursor:pointer;box-shadow:0 4px 20px rgba(0,212,255,.45)}
+      .ep-desc{display:none}.hero-stats{gap:18px}.pr{gap:6px}.pdesc{min-width:100%}
     }
   </style>
 </head>
 <body>
-
 <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
-
 <div class="layout">
-  <!-- Sidebar -->
-  <nav class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-      <div class="brand">🦊 Foxy<span>Tech</span></div>
-      <div class="version">API v1.0.0 · REST</div>
+
+<!-- ── Sidebar ── -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">🦊 Foxy<span>Tech</span></div>
+    <div class="version">API v1.0.0 · REST · Free</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-cat">Overview</div>
+    <a class="nav-item active" href="#overview" onclick="closeSidebar()"><span class="mbadge" style="background:rgba(0,212,255,.1);color:var(--accent)">●</span>Getting Started</a>
+    <div class="nav-cat">Artificial Intelligence</div>
+    <a class="nav-item" href="#ep-ai-chat" onclick="closeSidebar()"><span class="mbadge">GET</span>Chat (GPT)</a>
+    <a class="nav-item" href="#ep-ai-deepseek" onclick="closeSidebar()"><span class="mbadge">GET</span>DeepSeek</a>
+    <a class="nav-item" href="#ep-ai-gemini" onclick="closeSidebar()"><span class="mbadge">GET</span>Gemini</a>
+    <div class="nav-cat">Search</div>
+    <a class="nav-item" href="#ep-search-google" onclick="closeSidebar()"><span class="mbadge">GET</span>Google</a>
+    <a class="nav-item" href="#ep-search-news" onclick="closeSidebar()"><span class="mbadge">GET</span>News</a>
+    <a class="nav-item" href="#ep-search-lyrics" onclick="closeSidebar()"><span class="mbadge">GET</span>Lyrics</a>
+    <a class="nav-item" href="#ep-search-wallpaper" onclick="closeSidebar()"><span class="mbadge">GET</span>Wallpaper</a>
+    <div class="nav-cat">Tools</div>
+    <a class="nav-item" href="#ep-tools-weather" onclick="closeSidebar()"><span class="mbadge">GET</span>Weather</a>
+    <a class="nav-item" href="#ep-tools-qrcode" onclick="closeSidebar()"><span class="mbadge">GET</span>QR Code</a>
+    <div class="nav-cat">Stalk</div>
+    <a class="nav-item" href="#ep-stalk-github" onclick="closeSidebar()"><span class="mbadge">GET</span>GitHub</a>
+    <a class="nav-item" href="#ep-stalk-tiktok" onclick="closeSidebar()"><span class="mbadge">GET</span>TikTok</a>
+    <div class="nav-cat">Downloader</div>
+    <a class="nav-item" href="#ep-dl-ytmp3" onclick="closeSidebar()"><span class="mbadge">GET</span>YouTube MP3</a>
+    <a class="nav-item" href="#ep-dl-ytmp4" onclick="closeSidebar()"><span class="mbadge">GET</span>YouTube MP4</a>
+    <a class="nav-item" href="#ep-dl-tiktok" onclick="closeSidebar()"><span class="mbadge">GET</span>TikTok</a>
+    <a class="nav-item" href="#ep-dl-facebook" onclick="closeSidebar()"><span class="mbadge">GET</span>Facebook</a>
+    <div class="nav-cat">System</div>
+    <a class="nav-item" href="#ep-health" onclick="closeSidebar()"><span class="mbadge">GET</span>Health</a>
+  </div>
+  <div class="sidebar-foot">Built by <a href="https://github.com/wolfix-bots" target="_blank">Foxy Tech</a></div>
+</nav>
+
+<!-- ── Main ── -->
+<main class="main">
+
+  <!-- Hero -->
+  <section class="hero" id="overview">
+    <div class="hero-badge">Live · Free · No Key Required</div>
+    <h1>Foxy Tech <span class="accent">API</span></h1>
+    <p>Multi-purpose REST API — AI chat, web search, news, weather, lyrics, wallpapers, QR codes, social stalking and media downloaders. Test any endpoint right here.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="num" id="epCount">16</div><div class="label">Endpoints</div></div>
+      <div class="stat"><div class="num">6</div><div class="label">Categories</div></div>
+      <div class="stat"><div class="num">Free</div><div class="label">No API Key</div></div>
     </div>
-    <div class="sidebar-nav" id="sidebarNav">
-      <div class="nav-category">Overview</div>
-      <a class="nav-item active" href="#overview" onclick="closeSidebar()">
-        <span class="method-badge" style="background:rgba(0,212,255,0.1);color:var(--accent)">●</span>
-        Getting Started
-      </a>
-      <div class="nav-category">AI</div>
-      <a class="nav-item" href="#ep-ai-chat" onclick="closeSidebar()">
-        <span class="method-badge">GET</span> Chat
-      </a>
-      <div class="nav-category">Search</div>
-      <a class="nav-item" href="#ep-search-google" onclick="closeSidebar()">
-        <span class="method-badge">GET</span> Google
-      </a>
-      <a class="nav-item" href="#ep-search-lyrics" onclick="closeSidebar()">
-        <span class="method-badge">GET</span> Lyrics
-      </a>
-      <a class="nav-item" href="#ep-search-wallpaper" onclick="closeSidebar()">
-        <span class="method-badge">GET</span> Wallpaper
-      </a>
-      <div class="nav-category">Downloader</div>
-      <a class="nav-item" href="#ep-dl-tiktok" onclick="closeSidebar()">
-        <span class="method-badge">GET</span> TikTok
-      </a>
-      <a class="nav-item" href="#ep-dl-ytmp3" onclick="closeSidebar()">
-        <span class="method-badge">GET</span> YouTube MP3
-      </a>
-      <a class="nav-item" href="#ep-dl-ytmp4" onclick="closeSidebar()">
-        <span class="method-badge">GET</span> YouTube MP4
-      </a>
-      <div class="nav-category">System</div>
-      <a class="nav-item" href="#ep-health" onclick="closeSidebar()">
-        <span class="method-badge">GET</span> Health
-      </a>
+  </section>
+
+  <!-- Base URL bar -->
+  <div class="base-bar">
+    <span class="base-label">Base URL</span>
+    <input class="base-input" id="baseUrl" type="text" value="https://foxy-api-febf.onrender.com" spellcheck="false"/>
+    <span class="base-hint">Your deployed API URL · edit to test locally</span>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- ── AI ── -->
+    <div class="ep-group">
+      <div class="sec-title">Artificial Intelligence</div>
+
+      <!-- Chat -->
+      <div class="ep-card" id="ep-ai-chat">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/ai/chat<span class="param">?q=</span></span>
+          <span class="ep-desc">GPT-powered chat response</span>
+          <span class="chev">▼</span>
+        </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">q</span><span class="preq">*</span>
+            <input class="pinput" placeholder="Ask me anything..." data-param="q" oninput="updateUrl(this)"/>
+            <span class="pdesc">Your question or message</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/ai/chat</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/ai/chat',{q:'q'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
+      </div>
+
+      <!-- DeepSeek -->
+      <div class="ep-card" id="ep-ai-deepseek">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/ai/deepseek<span class="param">?q=</span></span>
+          <span class="ep-desc">DeepSeek AI response</span>
+          <span class="chev">▼</span>
+        </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">q</span><span class="preq">*</span>
+            <input class="pinput" placeholder="Ask DeepSeek..." data-param="q" oninput="updateUrl(this)"/>
+            <span class="pdesc">Your question or message</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/ai/deepseek</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/ai/deepseek',{q:'q'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
+      </div>
+
+      <!-- Gemini -->
+      <div class="ep-card" id="ep-ai-gemini">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/ai/gemini<span class="param">?q=</span></span>
+          <span class="ep-desc">Google Gemini AI response</span>
+          <span class="chev">▼</span>
+        </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">q</span><span class="preq">*</span>
+            <input class="pinput" placeholder="Ask Gemini..." data-param="q" oninput="updateUrl(this)"/>
+            <span class="pdesc">Your question or message</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/ai/gemini</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/ai/gemini',{q:'q'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
+      </div>
     </div>
-    <div class="sidebar-footer">
-      Built by <a href="https://github.com/wolfix-bots" target="_blank">Foxy Tech</a>
+
+    <!-- ── Search ── -->
+    <div class="ep-group">
+      <div class="sec-title">Search</div>
+
+      <!-- Google -->
+      <div class="ep-card" id="ep-search-google">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/search/google<span class="param">?q=</span></span>
+          <span class="ep-desc">Web search results</span>
+          <span class="chev">▼</span>
+        </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">q</span><span class="preq">*</span>
+            <input class="pinput" placeholder="latest AI news" data-param="q" oninput="updateUrl(this)"/>
+            <span class="pdesc">Search term</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/search/google</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/search/google',{q:'q'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
+      </div>
+
+      <!-- News -->
+      <div class="ep-card" id="ep-search-news">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/search/news<span class="param">?q=</span></span>
+          <span class="ep-desc">Latest news articles</span>
+          <span class="chev">▼</span>
+        </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">q</span><span class="preq">*</span>
+            <input class="pinput" placeholder="technology" data-param="q" oninput="updateUrl(this)"/>
+            <span class="pdesc">Topic or keyword</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/search/news</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/search/news',{q:'q'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
+      </div>
+
+      <!-- Lyrics -->
+      <div class="ep-card" id="ep-search-lyrics">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/search/lyrics<span class="param">?q=</span></span>
+          <span class="ep-desc">Song lyrics</span>
+          <span class="chev">▼</span>
+        </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">q</span><span class="preq">*</span>
+            <input class="pinput" placeholder="Blinding Lights The Weeknd" data-param="q" oninput="updateUrl(this)"/>
+            <span class="pdesc">Song name or artist</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/search/lyrics</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/search/lyrics',{q:'q'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
+      </div>
+
+      <!-- Wallpaper -->
+      <div class="ep-card" id="ep-search-wallpaper">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/search/wallpaper<span class="param">?q=</span></span>
+          <span class="ep-desc">Wallpaper image results</span>
+          <span class="chev">▼</span>
+        </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">q</span><span class="preq"></span>
+            <input class="pinput" placeholder="nature landscape" data-param="q" oninput="updateUrl(this)"/>
+            <span class="pdesc">Search term (optional)</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/search/wallpaper</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/search/wallpaper',{q:'q'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
+      </div>
     </div>
-  </nav>
 
-  <!-- Main -->
-  <main class="main">
-    <!-- Hero -->
-    <section class="hero" id="overview">
-      <div class="hero-badge">Live · Free to Use</div>
-      <h1>Foxy Tech <span class="accent">API</span></h1>
-      <p>A multi-purpose REST API. AI chat, web search, lyrics, wallpapers, and media downloaders — all in one place. Test any endpoint right here.</p>
-      <div class="hero-stats">
-        <div class="stat"><div class="num">8</div><div class="label">Endpoints</div></div>
-        <div class="stat"><div class="num">4</div><div class="label">Categories</div></div>
-        <div class="stat"><div class="num">Free</div><div class="label">No API Key</div></div>
+    <!-- ── Tools ── -->
+    <div class="ep-group">
+      <div class="sec-title">Tools</div>
+
+      <!-- Weather -->
+      <div class="ep-card" id="ep-tools-weather">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/tools/weather<span class="param">?city=</span></span>
+          <span class="ep-desc">Current weather data</span>
+          <span class="chev">▼</span>
+        </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">city</span><span class="preq">*</span>
+            <input class="pinput" placeholder="Nairobi" data-param="city" oninput="updateUrl(this)"/>
+            <span class="pdesc">City name</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/tools/weather</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/tools/weather',{city:'city'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
       </div>
-    </section>
 
-    <!-- Base URL Bar -->
-    <div class="base-url-bar">
-      <span class="base-url-label">Base URL</span>
-      <input class="base-url-input" id="baseUrl" type="text" value="" placeholder="https://your-app.onrender.com"/>
-      <span class="base-url-hint">Your Render deployment URL</span>
+      <!-- QR Code -->
+      <div class="ep-card" id="ep-tools-qrcode">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/tools/qrcode<span class="param">?text=</span></span>
+          <span class="ep-desc">Generate a QR code</span>
+          <span class="chev">▼</span>
+        </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">text</span><span class="preq">*</span>
+            <input class="pinput" placeholder="https://example.com" data-param="text" oninput="updateUrl(this)"/>
+            <span class="pdesc">Text or URL to encode</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/tools/qrcode</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/tools/qrcode',{text:'text'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
+      </div>
     </div>
 
-    <!-- Content -->
-    <div class="content">
+    <!-- ── Stalk ── -->
+    <div class="ep-group">
+      <div class="sec-title">Stalk</div>
 
-      <!-- AI -->
-      <div class="endpoint-group">
-        <div class="section-title">Artificial Intelligence</div>
-
-        <div class="endpoint-card" id="ep-ai-chat">
-          <div class="endpoint-header" onclick="toggle(this)">
-            <span class="method">GET</span>
-            <span class="endpoint-path">/api/ai/chat<span class="param">?q=</span></span>
-            <span class="endpoint-desc">AI chat response</span>
-            <span class="chevron">▼</span>
-          </div>
-          <div class="endpoint-body">
-            <div class="endpoint-inner">
-              <div class="params-title">Query Parameters</div>
-              <div class="param-row">
-                <span class="param-name">q</span>
-                <span class="param-req">*</span>
-                <input class="param-input" placeholder="Ask me anything..." data-param="q" oninput="updateUrl(this)"/>
-                <span class="param-desc">Your message or question</span>
-              </div>
-              <div class="url-preview" id="url-ai-chat">
-                <span class="url-method">GET</span>
-                <span class="url-path url-full">/api/ai/chat</span>
-              </div>
-              <button class="try-btn" onclick="run(this, '/api/ai/chat', {q:'q'})">
-                ▶ Send Request
-              </button>
-              <div class="response-area" id="res-ai-chat"></div>
-            </div>
-          </div>
+      <!-- GitHub -->
+      <div class="ep-card" id="ep-stalk-github">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/stalk/github<span class="param">?username=</span></span>
+          <span class="ep-desc">GitHub profile info</span>
+          <span class="chev">▼</span>
         </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">username</span><span class="preq">*</span>
+            <input class="pinput" placeholder="torvalds" data-param="username" oninput="updateUrl(this)"/>
+            <span class="pdesc">GitHub username</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/stalk/github</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/stalk/github',{username:'username'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
       </div>
 
-      <!-- Search -->
-      <div class="endpoint-group">
-        <div class="section-title">Search</div>
-
-        <div class="endpoint-card" id="ep-search-google">
-          <div class="endpoint-header" onclick="toggle(this)">
-            <span class="method">GET</span>
-            <span class="endpoint-path">/api/search/google<span class="param">?q=</span></span>
-            <span class="endpoint-desc">Web search results</span>
-            <span class="chevron">▼</span>
-          </div>
-          <div class="endpoint-body">
-            <div class="endpoint-inner">
-              <div class="params-title">Query Parameters</div>
-              <div class="param-row">
-                <span class="param-name">q</span>
-                <span class="param-req">*</span>
-                <input class="param-input" placeholder="latest AI news" data-param="q" oninput="updateUrl(this)"/>
-                <span class="param-desc">Search term</span>
-              </div>
-              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/search/google</span></div>
-              <button class="try-btn" onclick="run(this, '/api/search/google', {q:'q'})">▶ Send Request</button>
-              <div class="response-area" id="res-search-google"></div>
-            </div>
-          </div>
+      <!-- TikTok stalk -->
+      <div class="ep-card" id="ep-stalk-tiktok">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/stalk/tiktok<span class="param">?username=</span></span>
+          <span class="ep-desc">TikTok profile info</span>
+          <span class="chev">▼</span>
         </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">username</span><span class="preq">*</span>
+            <input class="pinput" placeholder="tiktok" data-param="username" oninput="updateUrl(this)"/>
+            <span class="pdesc">TikTok username (no @)</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/stalk/tiktok</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/stalk/tiktok',{username:'username'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
+      </div>
+    </div>
 
-        <div class="endpoint-card" id="ep-search-lyrics">
-          <div class="endpoint-header" onclick="toggle(this)">
-            <span class="method">GET</span>
-            <span class="endpoint-path">/api/search/lyrics<span class="param">?q=</span></span>
-            <span class="endpoint-desc">Song lyrics</span>
-            <span class="chevron">▼</span>
-          </div>
-          <div class="endpoint-body">
-            <div class="endpoint-inner">
-              <div class="params-title">Query Parameters</div>
-              <div class="param-row">
-                <span class="param-name">q</span>
-                <span class="param-req">*</span>
-                <input class="param-input" placeholder="Blinding Lights The Weeknd" data-param="q" oninput="updateUrl(this)"/>
-                <span class="param-desc">Song name or artist</span>
-              </div>
-              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/search/lyrics</span></div>
-              <button class="try-btn" onclick="run(this, '/api/search/lyrics', {q:'q'})">▶ Send Request</button>
-              <div class="response-area" id="res-search-lyrics"></div>
-            </div>
-          </div>
-        </div>
+    <!-- ── Downloader ── -->
+    <div class="ep-group">
+      <div class="sec-title">Downloader</div>
 
-        <div class="endpoint-card" id="ep-search-wallpaper">
-          <div class="endpoint-header" onclick="toggle(this)">
-            <span class="method">GET</span>
-            <span class="endpoint-path">/api/search/wallpaper<span class="param">?q=</span></span>
-            <span class="endpoint-desc">Wallpaper image results</span>
-            <span class="chevron">▼</span>
-          </div>
-          <div class="endpoint-body">
-            <div class="endpoint-inner">
-              <div class="params-title">Query Parameters</div>
-              <div class="param-row">
-                <span class="param-name">q</span>
-                <span class="param-req"></span>
-                <input class="param-input" placeholder="nature landscape" data-param="q" oninput="updateUrl(this)"/>
-                <span class="param-desc">Search term (optional)</span>
-              </div>
-              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/search/wallpaper</span></div>
-              <button class="try-btn" onclick="run(this, '/api/search/wallpaper', {q:'q'})">▶ Send Request</button>
-              <div class="response-area" id="res-search-wallpaper"></div>
-            </div>
-          </div>
+      <!-- YouTube MP3 -->
+      <div class="ep-card" id="ep-dl-ytmp3">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/downloader/ytmp3<span class="param">?url=</span></span>
+          <span class="ep-desc">YouTube audio download</span>
+          <span class="chev">▼</span>
         </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">url</span><span class="preq">*</span>
+            <input class="pinput" placeholder="https://youtu.be/..." data-param="url" oninput="updateUrl(this)"/>
+            <span class="pdesc">YouTube video URL</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/downloader/ytmp3</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/downloader/ytmp3',{url:'url'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
       </div>
 
-      <!-- Downloader -->
-      <div class="endpoint-group">
-        <div class="section-title">Downloader</div>
-
-        <div class="endpoint-card" id="ep-dl-tiktok">
-          <div class="endpoint-header" onclick="toggle(this)">
-            <span class="method">GET</span>
-            <span class="endpoint-path">/api/downloader/tiktok<span class="param">?url=</span></span>
-            <span class="endpoint-desc">TikTok video download link</span>
-            <span class="chevron">▼</span>
-          </div>
-          <div class="endpoint-body">
-            <div class="endpoint-inner">
-              <div class="params-title">Query Parameters</div>
-              <div class="param-row">
-                <span class="param-name">url</span>
-                <span class="param-req">*</span>
-                <input class="param-input" placeholder="https://vm.tiktok.com/..." data-param="url" oninput="updateUrl(this)"/>
-                <span class="param-desc">Public TikTok video URL</span>
-              </div>
-              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/downloader/tiktok</span></div>
-              <button class="try-btn" onclick="run(this, '/api/downloader/tiktok', {url:'url'})">▶ Send Request</button>
-              <div class="response-area" id="res-dl-tiktok"></div>
-            </div>
-          </div>
+      <!-- YouTube MP4 -->
+      <div class="ep-card" id="ep-dl-ytmp4">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/downloader/ytmp4<span class="param">?url=</span></span>
+          <span class="ep-desc">YouTube video download</span>
+          <span class="chev">▼</span>
         </div>
-
-        <div class="endpoint-card" id="ep-dl-ytmp3">
-          <div class="endpoint-header" onclick="toggle(this)">
-            <span class="method">GET</span>
-            <span class="endpoint-path">/api/downloader/ytmp3<span class="param">?url=</span></span>
-            <span class="endpoint-desc">YouTube audio download</span>
-            <span class="chevron">▼</span>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">url</span><span class="preq">*</span>
+            <input class="pinput" placeholder="https://youtu.be/..." data-param="url" oninput="updateUrl(this)"/>
+            <span class="pdesc">YouTube video URL</span>
           </div>
-          <div class="endpoint-body">
-            <div class="endpoint-inner">
-              <div class="params-title">Query Parameters</div>
-              <div class="param-row">
-                <span class="param-name">url</span>
-                <span class="param-req">*</span>
-                <input class="param-input" placeholder="https://youtu.be/..." data-param="url" oninput="updateUrl(this)"/>
-                <span class="param-desc">YouTube video URL</span>
-              </div>
-              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/downloader/ytmp3</span></div>
-              <button class="try-btn" onclick="run(this, '/api/downloader/ytmp3', {url:'url'})">▶ Send Request</button>
-              <div class="response-area" id="res-dl-ytmp3"></div>
-            </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/downloader/ytmp4</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
           </div>
-        </div>
-
-        <div class="endpoint-card" id="ep-dl-ytmp4">
-          <div class="endpoint-header" onclick="toggle(this)">
-            <span class="method">GET</span>
-            <span class="endpoint-path">/api/downloader/ytmp4<span class="param">?url=</span></span>
-            <span class="endpoint-desc">YouTube video download</span>
-            <span class="chevron">▼</span>
-          </div>
-          <div class="endpoint-body">
-            <div class="endpoint-inner">
-              <div class="params-title">Query Parameters</div>
-              <div class="param-row">
-                <span class="param-name">url</span>
-                <span class="param-req">*</span>
-                <input class="param-input" placeholder="https://youtu.be/..." data-param="url" oninput="updateUrl(this)"/>
-                <span class="param-desc">YouTube video URL</span>
-              </div>
-              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/api/downloader/ytmp4</span></div>
-              <button class="try-btn" onclick="run(this, '/api/downloader/ytmp4', {url:'url'})">▶ Send Request</button>
-              <div class="response-area" id="res-dl-ytmp4"></div>
-            </div>
-          </div>
-        </div>
+          <button class="try-btn" onclick="run(this,'/api/downloader/ytmp4',{url:'url'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
       </div>
 
-      <!-- System -->
-      <div class="endpoint-group">
-        <div class="section-title">System</div>
-        <div class="endpoint-card" id="ep-health">
-          <div class="endpoint-header" onclick="toggle(this)">
-            <span class="method">GET</span>
-            <span class="endpoint-path">/health</span>
-            <span class="endpoint-desc">Server health & uptime</span>
-            <span class="chevron">▼</span>
-          </div>
-          <div class="endpoint-body">
-            <div class="endpoint-inner">
-              <div style="font-size:13px;color:var(--text2);margin-bottom:12px;">No parameters required.</div>
-              <div class="url-preview"><span class="url-method">GET</span><span class="url-path url-full">/health</span></div>
-              <button class="try-btn" onclick="run(this, '/health', {})">▶ Send Request</button>
-              <div class="response-area" id="res-health"></div>
-            </div>
-          </div>
+      <!-- TikTok -->
+      <div class="ep-card" id="ep-dl-tiktok">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/downloader/tiktok<span class="param">?url=</span></span>
+          <span class="ep-desc">TikTok video (no watermark)</span>
+          <span class="chev">▼</span>
         </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">url</span><span class="preq">*</span>
+            <input class="pinput" placeholder="https://vm.tiktok.com/..." data-param="url" oninput="updateUrl(this)"/>
+            <span class="pdesc">Public TikTok video URL</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/downloader/tiktok</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/downloader/tiktok',{url:'url'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
       </div>
 
-    </div><!-- /content -->
-  </main>
+      <!-- Facebook -->
+      <div class="ep-card" id="ep-dl-facebook">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/api/downloader/facebook<span class="param">?url=</span></span>
+          <span class="ep-desc">Facebook video download links</span>
+          <span class="chev">▼</span>
+        </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div class="pt">Parameters</div>
+          <div class="pr">
+            <span class="pname">url</span><span class="preq">*</span>
+            <input class="pinput" placeholder="https://www.facebook.com/watch?v=..." data-param="url" oninput="updateUrl(this)"/>
+            <span class="pdesc">Facebook video or reel URL</span>
+          </div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/api/downloader/facebook</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/api/downloader/facebook',{url:'url'})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- ── System ── -->
+    <div class="ep-group">
+      <div class="sec-title">System</div>
+      <div class="ep-card" id="ep-health">
+        <div class="ep-head" onclick="toggle(this)">
+          <span class="method">GET</span>
+          <span class="ep-path">/health</span>
+          <span class="ep-desc">Server uptime & status</span>
+          <span class="chev">▼</span>
+        </div>
+        <div class="ep-body"><div class="ep-inner">
+          <div style="font-size:12px;color:var(--text2);margin-bottom:10px">No parameters required.</div>
+          <div class="url-row">
+            <div class="url-preview"><span class="url-method">GET</span><span class="url-full">/health</span></div>
+            <button class="copy-btn" onclick="copyUrl(this)">📋 Copy URL</button>
+          </div>
+          <button class="try-btn" onclick="run(this,'/health',{})">▶ Send Request</button>
+          <div class="res-area"></div>
+        </div></div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</main>
 </div>
 
-<button class="hamburger" id="hamburger" onclick="toggleSidebar()">☰</button>
+<button class="hamburger" onclick="toggleSidebar()">☰</button>
 
 <script>
   // ── Base URL ──
   const baseInput = document.getElementById('baseUrl');
-  const savedBase = localStorage.getItem('foxyApiBase') || '';
-  if (savedBase) baseInput.value = savedBase;
   baseInput.addEventListener('input', () => {
     localStorage.setItem('foxyApiBase', baseInput.value.trim());
-    document.querySelectorAll('.url-full').forEach(el => el.dataset.path && updatePreview(el));
+    document.querySelectorAll('.url-full').forEach(el => el.dataset.path && rebuildForEl(el));
   });
+  const saved = localStorage.getItem('foxyApiBase');
+  if (saved) baseInput.value = saved;
 
-  function getBase() {
-    return baseInput.value.trim().replace(/\/$/, '') || window.location.origin;
-  }
+  function getBase() { return baseInput.value.trim().replace(/\/$/, '') || window.location.origin; }
 
-  // ── Toggle card ──
-  function toggle(header) {
-    const card = header.parentElement;
-    card.classList.toggle('open');
-  }
+  // ── Toggle ──
+  function toggle(hdr) { hdr.parentElement.classList.toggle('open'); }
 
   // ── Update URL preview when typing ──
-  function updateUrl(input) {
-    const body = input.closest('.endpoint-body');
-    const preview = body.querySelector('.url-preview .url-full');
-    const btn = body.querySelector('.try-btn');
-    rebuildPreview(body);
-  }
+  function updateUrl(input) { rebuildForEl(input.closest('.ep-body').querySelector('.url-full')); }
 
-  function rebuildPreview(body) {
-    const inputs = body.querySelectorAll('.param-input');
-    const path = body.querySelector('.endpoint-header .endpoint-path')?.textContent?.split('?')[0] || '';
+  function rebuildForEl(urlEl) {
+    if (!urlEl) return;
+    const body = urlEl.closest('.ep-body');
+    if (!body) return;
+    const rawPath = body.querySelector('.ep-head .ep-path')?.textContent?.split('?')[0].trim() || urlEl.textContent.split('?')[0];
+    const inputs = body.querySelectorAll('.pinput');
     const parts = [];
-    inputs.forEach(inp => {
-      const param = inp.dataset.param;
-      const val = inp.value.trim();
-      if (val) parts.push(param + '=' + encodeURIComponent(val));
-    });
+    inputs.forEach(inp => { const v = inp.value.trim(); if (v) parts.push(inp.dataset.param + '=' + encodeURIComponent(v)); });
     const qs = parts.length ? '?' + parts.join('&') : '';
-    const preview = body.querySelector('.url-full');
-    if (preview) {
-      preview.innerHTML = path + (qs ? '<span style="color:var(--orange)">' + escHtml(qs) + '</span>' : '');
-      preview.dataset.path = path;
-    }
+    urlEl.innerHTML = esc(rawPath) + (qs ? '<span style="color:var(--orange)">' + esc(qs) + '</span>' : '');
+    urlEl.dataset.path = rawPath;
+    urlEl.dataset.qs = qs;
   }
 
-  function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // ── Copy URL ──
+  function copyUrl(btn) {
+    const urlEl = btn.closest('.url-row').querySelector('.url-full');
+    const path = urlEl.dataset.path || urlEl.textContent.split('?')[0];
+    const qs = urlEl.dataset.qs || '';
+    const full = getBase() + path + qs;
+    navigator.clipboard.writeText(full).then(() => {
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✅ Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = full; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      btn.innerHTML = '✅ Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.innerHTML = '📋 Copy URL'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
 
   // ── Run request ──
   async function run(btn, path, paramMap) {
-    const body = btn.closest('.endpoint-body');
-    const inputs = {};
-    Object.entries(paramMap).forEach(([key, inputKey]) => {
-      const el = body.querySelector('[data-param="' + inputKey + '"]');
-      if (el) inputs[key] = el.value.trim();
-    });
-
-    const qs = Object.entries(inputs).filter(([,v])=>v).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');
+    const body = btn.closest('.ep-body');
+    const qs = Object.entries(paramMap)
+      .map(([k, inputKey]) => { const el = body.querySelector('[data-param="' + inputKey + '"]'); return el?.value.trim() ? k + '=' + encodeURIComponent(el.value.trim()) : ''; })
+      .filter(Boolean).join('&');
     const url = getBase() + path + (qs ? '?' + qs : '');
-
-    // Show loading
     btn.classList.add('loading');
-    btn.innerHTML = '<span class="spinner"></span> Sending...';
-
-    // Find response area: derive id from endpoint card id
-    const card = btn.closest('.endpoint-card');
-    const resId = 'res-' + card.id.replace('ep-','');
-    const resArea = document.getElementById(resId);
-
+    btn.innerHTML = '<span class="spinner"></span> Sending…';
+    const resArea = body.querySelector('.res-area');
     const t0 = Date.now();
     try {
       const resp = await fetch(url);
       const elapsed = Date.now() - t0;
-      let data;
       const ct = resp.headers.get('content-type') || '';
-      if (ct.includes('json')) data = await resp.json();
-      else data = await resp.text();
-
-      showResponse(resArea, resp.status, elapsed, data);
+      const data = ct.includes('json') ? await resp.json() : await resp.text();
+      showRes(resArea, resp.status, elapsed, data);
     } catch (e) {
-      showResponse(resArea, 0, Date.now() - t0, { error: e.message });
+      showRes(resArea, 0, Date.now() - t0, { error: e.message });
     }
-
     btn.classList.remove('loading');
     btn.innerHTML = '▶ Send Request';
   }
 
-  function showResponse(area, status, ms, data) {
+  function showRes(area, status, ms, data) {
     const ok = status >= 200 && status < 300;
-    const chipClass = ok ? 'ok' : 'err';
-    const chipText = status === 0 ? 'ERR' : status;
-    const pretty = typeof data === 'string' ? escHtml(data) : syntaxHighlight(JSON.stringify(data, null, 2));
-
-    area.innerHTML = `
-      <div class="response-header">
-        <span class="response-label">Response</span>
-        <div style="display:flex;align-items:center;gap:10px">
-          <span class="response-time">${ms}ms</span>
-          <span class="status-chip ${chipClass}">HTTP ${chipText}</span>
-        </div>
+    const pretty = typeof data === 'string' ? esc(data) : highlight(JSON.stringify(data, null, 2));
+    area.innerHTML = `<div class="res-head">
+      <span class="res-label">Response</span>
+      <div style="display:flex;align-items:center;gap:9px">
+        <span class="res-time">${ms}ms</span>
+        <span class="chip ${ok?'ok':'err'}">HTTP ${status||'ERR'}</span>
       </div>
-      <pre class="response-pre">${pretty}</pre>
-    `;
+    </div><pre class="res-pre">${pretty}</pre>`;
     area.classList.add('visible');
     area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  function syntaxHighlight(json) {
+  function highlight(json) {
     return json.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
       .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, m => {
-        let cls = 'json-num';
-        if (/^"/.test(m)) cls = /:$/.test(m) ? 'json-key' : 'json-str';
-        else if (/true|false/.test(m)) cls = 'json-bool';
-        else if (/null/.test(m)) cls = 'json-null';
-        return '<span class="' + cls + '">' + m + '</span>';
+        let c = 'jn';
+        if (/^"/.test(m)) c = /:$/.test(m) ? 'jk' : 'js';
+        else if (/true|false/.test(m)) c = 'jb';
+        else if (/null/.test(m)) c = 'jnull';
+        return '<span class="' + c + '">' + m + '</span>';
       });
   }
 
   // ── Mobile ──
-  function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
-    document.getElementById('overlay').classList.toggle('visible');
-  }
-  function closeSidebar() {
-    document.getElementById('sidebar').classList.remove('open');
-    document.getElementById('overlay').classList.remove('visible');
-  }
+  function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('visible'); }
+  function closeSidebar()  { document.getElementById('sidebar').classList.remove('open');  document.getElementById('overlay').classList.remove('visible'); }
 
   // ── Active nav on scroll ──
   const navItems = document.querySelectorAll('.nav-item[href^="#"]');
-  const observer = new IntersectionObserver(entries => {
+  const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         navItems.forEach(n => n.classList.remove('active'));
-        const match = document.querySelector('.nav-item[href="#' + e.target.id + '"]');
-        if (match) match.classList.add('active');
+        const m = document.querySelector('.nav-item[href="#' + e.target.id + '"]');
+        if (m) m.classList.add('active');
       }
     });
-  }, { threshold: 0.4 });
-  document.querySelectorAll('[id^="ep-"], #overview').forEach(el => observer.observe(el));
+  }, { threshold: 0.3 });
+  document.querySelectorAll('[id^="ep-"], #overview').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
